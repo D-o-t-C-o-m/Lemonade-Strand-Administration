@@ -1,7 +1,7 @@
 
 ##lemon stand administration##
 
-The main goal of the application is to sell lemonade. There are many types of lemonades made using a variety of recipes that combine a number of products. We need to keep track of our stocks of products and of our suppliers. A product has a name, a quantity stock, a price, and is provided by a single supplier. A supplier has a name and an email address used as a point of contact when our stock of products is almost empty. Our application should manage the deposit by adding, removing, modifying, and listing the products and suppliers.
+The MainTest goal of the application is to sell lemonade. There are many types of lemonades made using a variety of recipes that combine a number of products. We need to keep track of our stocks of products and of our suppliers. A product has a name, a quantity stock, a price, and is provided by a single supplier. A supplier has a name and an email address used as a point of contact when our stock of products is almost empty. Our application should manage the deposit by adding, removing, modifying, and listing the products and suppliers.
 
 Our application should be able to read a file containing a list of lemonades recipes, each made from a certain number and combination of products. Each type of lemonade will have a different name, a selling price and a list of required products.
 
