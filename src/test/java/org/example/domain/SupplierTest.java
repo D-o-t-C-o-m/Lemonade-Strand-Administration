@@ -1,6 +1,4 @@
-package domain;
-
-import org.example.domain.Supplier;
+package org.example.domain;
 
 
 public class SupplierTest {

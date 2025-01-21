@@ -4,6 +4,7 @@ import org.example.repository.SupplierRepository;
 import org.example.service.SupplierService;
 import org.example.userinterface.UserInterface;
 
+//import org.example.MainTest;
 
 
 public class Main {
@@ -12,8 +13,8 @@ public static void main(String[] args) {
 	SupplierService supplierService = new SupplierService(supplierRepository);
 	UserInterface userInterface = new UserInterface(supplierService);
 
-	MainTest tests = new MainTest();
-	tests.runAllTest();
+	//MainTest tests = new MainTest();
+	//tests.runAllTests();
 
 	userInterface.runMenu();
 }

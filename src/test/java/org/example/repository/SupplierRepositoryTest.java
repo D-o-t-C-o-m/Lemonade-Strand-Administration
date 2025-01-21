@@ -1,7 +1,6 @@
-package repository;
+package org.example.repository;
 
 import org.example.domain.Supplier;
-import org.example.repository.SupplierRepository;
 
 public class SupplierRepositoryTest {
 
@@ -24,7 +23,7 @@ public void shouldSaveTwoElements_whenSaveIsCalled() {
 		Supplier firstSavedSuppler = supplierRepository.save(firstSupplierToSave);
 
 		Supplier secondSupplierToSave = new Supplier(2, "Water", "contact@Water.com");
-		Supplier secondSavedSuppler = supplierRepository.save(firstSupplierToSave);
+		Supplier secondSavedSuppler = supplierRepository.save(secondSupplierToSave);
 
 		assert firstSavedSuppler.getId() == 1;
 		assert firstSavedSuppler.getName().equals("Lemonades");
