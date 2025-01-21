@@ -1,4 +1,4 @@
-package org.example;
+package org.example.domain;
 
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ public Supplier(){
 	this.id = -1;
 }
 
-public Supplier(int id, String name, String email) {
+public Supplier(Integer id, String name, String email) {
 	this.id = id;
 	this.name = name;
 	this.email = email;
@@ -44,6 +44,6 @@ public boolean equals(Object o) {
 
 @Override
 public String toString() {
-	return "Supplier{id=" + id + ", name='" + name + '\'' +", email'=" + email + +'\''+"}";
+	return "Supplier{id=" + id + ", name='" + name + '\'' +", email='" + email + "'" +"}";
 }
 }
