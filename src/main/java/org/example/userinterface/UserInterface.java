@@ -1,8 +1,11 @@
 package org.example.userinterface;
 
+import org.example.exceptions.IDNotUniqueException;
+import org.example.exceptions.ValidationException;
 import org.example.service.SupplierService;
 import org.example.domain.Supplier;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -32,21 +35,25 @@ private void showMenu() {
 public void runMenu(){
 	Scanner scanner = new Scanner(System.in);
 	int option = -1;
-	while (option != 7) {
-		showMenu();
-		option = scanner.nextInt();
-		switch (option) {
-			case 1:
-				runSuppliersMenu(scanner);
-				break;
-			case 2, 4, 3, 5, 6:
-				System.out.println("Coming Soon");
-				break;
-			case 7:
-			break;
+	try {
+		while (option != 7) {
+			showMenu();
+			option = scanner.nextInt();
+			switch (option) {
+				case 1:
+					runSuppliersMenu(scanner);
+					break;
+				case 2, 3, 4, 5, 6:
+					System.out.println("Coming Soon");
+					break;
+				case 7:
+					break;
+			}
 		}
+		scanner.close();
+	} catch (InputMismatchException e) {
+		System.out.println("Please enter a valid number");
 	}
-	scanner.close();
 }
 private void showSuppliersMenu() {
 		System.out.println("The Suppliers menu:");
@@ -61,6 +68,7 @@ private void showSuppliersMenu() {
 	}
 public void runSuppliersMenu(Scanner scanner) {
 	int option = -1;
+	try {
 	while (option != 5) {
 		showSuppliersMenu();
 		option = scanner.nextInt();
@@ -80,6 +88,9 @@ public void runSuppliersMenu(Scanner scanner) {
 				break;
 		}
 	}
+	} catch (InputMismatchException e) {
+		System.out.println("Please enter a valid number");
+	}
 }
 private void handleAddSupplier(Scanner scanner) {
 	Random random = new Random();
@@ -92,8 +103,12 @@ private void handleAddSupplier(Scanner scanner) {
 	System.out.println("Email: ");
 	String email = scanner.next();
 
-	Supplier savedSupplier = supplierService.saveSupplier(id, name, email);
-	System.out.printf("The supplier with ID %d was created successfully. %n", savedSupplier.getId());
+	try {
+		Supplier savedSupplier = supplierService.saveSupplier(id, name, email);
+		System.out.printf("The supplier with ID %d was created successfully. %n", savedSupplier.getId());
+	} catch (ValidationException | IDNotUniqueException e) {
+		System.out.println("Error with saving the supplier" + e.getMessage());
+	}
 
 }
 private void handleUpdateSupplier(Scanner scanner) {

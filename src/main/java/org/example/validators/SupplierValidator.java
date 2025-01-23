@@ -1,4 +1,33 @@
 package org.example.validators;
 
+import org.example.domain.Supplier;
+import org.example.exceptions.ValidationException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SupplierValidator {
+
+public void validateSupplier(Supplier supplier) throws ValidationException {
+	StringBuilder stringBuilder = new StringBuilder();
+	if (supplier.getName().length() < 3 || supplier.getName().length() > 100) {
+		stringBuilder.append("Supplier name must be between 3 and 100 characters");
+	}
+
+	String regex = "^(.+)@(.+)$";
+	Pattern pattern = Pattern.compile(regex);
+	Matcher matcher = pattern.matcher(supplier.getEmail());
+
+	if (supplier.getEmail().length() > 100 || supplier.getEmail().length() < 3) {
+		stringBuilder.append("Supplier email must be between 3 and 100 characters");
+	}
+
+	if(!matcher.matches()) {
+		stringBuilder.append("Supplier email should be in the pattern: Email@email.com");
+	}
+	if (!stringBuilder.isEmpty()){
+		throw new ValidationException(stringBuilder.toString());
+		}
+	}
+
 }

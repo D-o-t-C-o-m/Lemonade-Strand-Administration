@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.exceptions.IDNotUniqueException;
+import org.example.exceptions.ValidationException;
 import org.example.repository.SupplierRepositoryTest;
 import org.example.service.SupplierServiceTest;
 import org.example.domain.SupplierTest;
@@ -9,7 +11,7 @@ public static void main(String[] args) {
 	runAllTests();
 }
 public static void runAllTests() {
-
+try{
 	SupplierTest supplierTest = new SupplierTest();
 	supplierTest.testAllDomain();
 
@@ -20,6 +22,9 @@ public static void runAllTests() {
 	supplierServiceTest.testAllService();
 
 	System.out.println("All tests have run successfully");
+} catch (ValidationException | IDNotUniqueException e) {
+	System.out.println("The tests have failed, e=" + e.getMessage());
+}
 
 }
 }

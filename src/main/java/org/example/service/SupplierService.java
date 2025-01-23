@@ -1,19 +1,22 @@
 package org.example.service;
+import org.example.exceptions.IDNotUniqueException;
+import org.example.exceptions.ValidationException;
 import org.example.repository.SupplierRepository;
 import org.example.domain.Supplier;
-
-import java.util.Random;
+import org.example.validators.SupplierValidator;
 
 public class SupplierService {
-
+private SupplierValidator supplierValidator;
 private SupplierRepository supplierRepository;
 
 public SupplierService(SupplierRepository supplierRepository) {
 	this.supplierRepository = supplierRepository;
+	this.supplierValidator = new SupplierValidator();
 }
-public Supplier saveSupplier(int id, String name, String email) {
+public Supplier saveSupplier(int id, String name, String email) throws ValidationException, IDNotUniqueException {
 	Supplier supplier = new Supplier(id, name, email);
 	Supplier savedSupplier = supplierRepository.save(supplier);
+	supplierValidator.validateSupplier(supplier);
 	return savedSupplier;
 }
 public void deleteSupplier(int id) {

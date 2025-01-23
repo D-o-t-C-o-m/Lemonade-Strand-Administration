@@ -1,6 +1,8 @@
 package org.example.service;
 
 import org.example.domain.Supplier;
+import org.example.exceptions.IDNotUniqueException;
+import org.example.exceptions.ValidationException;
 import org.example.repository.SupplierRepository;
 
 public class SupplierServiceTest {
@@ -11,7 +13,7 @@ private void setUp(){
 	supplierService = new SupplierService(supplierRepository);
 }
 
-public void shouldSaveSupplier_whenSavedIsCalled(){
+public void shouldSaveSupplier_whenSavedIsCalled() throws ValidationException, IDNotUniqueException {
 	setUp();
 
 	Supplier savedSupplier = supplierService.saveSupplier(1, "Lemonades", "Contact@lemonades.com");
@@ -34,7 +36,7 @@ public void shouldUpdateSupplier_whenUpdateIsCalled(){
 
 }
 
-public void shouldDeleteSupplier_whenDeletedIsCalled(){
+public void shouldDeleteSupplier_whenDeletedIsCalled() throws ValidationException, IDNotUniqueException {
 	setUp();
 	Supplier supplierToDelete = supplierService.saveSupplier(1, "Lemonades", "Contact@lemonades.com");
 	supplierService.deleteSupplier(supplierToDelete.getId());
@@ -42,7 +44,7 @@ public void shouldDeleteSupplier_whenDeletedIsCalled(){
 	assert supplierService.findById(1) == null;
 }
 
-public void shouldFindAllSupplier_whenFindAllIsCalled(){
+public void shouldFindAllSupplier_whenFindAllIsCalled() throws ValidationException, IDNotUniqueException {
 	setUp();
 	supplierService.saveSupplier(1, "Lemonades", "Contact@lemonades.com");
 	supplierService.saveSupplier(2, "Leo nades", "Coct@leonades.com");
@@ -54,10 +56,24 @@ public void shouldFindAllSupplier_whenFindAllIsCalled(){
 	assert secondSupplier.getId() == 2;
 
 }
-public void testAllService(){
+public void shouldNotSaveTheElement_whenWeAddNotUniqueElement() throws IDNotUniqueException {
+	SupplierRepository supplierRepository = new SupplierRepository();
+	Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
+	Supplier secondSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
+
+	try {
+		Supplier firstSavedSupplier = supplierRepository.save(firstSupplierToSave);
+		Supplier secondSavedSupplier = supplierRepository.save(secondSupplierToSave);
+		assert false;
+	} catch (IDNotUniqueException e) {
+		assert true;
+	}
+}
+public void testAllService() throws IDNotUniqueException, ValidationException {
 	shouldSaveSupplier_whenSavedIsCalled();
 	shouldUpdateSupplier_whenUpdateIsCalled();
 	shouldDeleteSupplier_whenDeletedIsCalled();
 	shouldFindAllSupplier_whenFindAllIsCalled();
+	shouldNotSaveTheElement_whenWeAddNotUniqueElement();
 }
 }

@@ -1,6 +1,8 @@
 package org.example.repository;
 
 import org.example.domain.Supplier;
+import org.example.exceptions.IDNotUniqueException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +13,11 @@ public SupplierRepository() {
 	this.suppliers = new HashMap<>();
 }
 
-public Supplier save(Supplier supplier) {
+public Supplier save(Supplier supplier) throws IDNotUniqueException {
+	if(suppliers.containsKey(supplier.getId())) {
+		throw new IDNotUniqueException("The ID is not unique");
+	}
+
 	this.suppliers.put(supplier.getId(), supplier);
 	return supplier;
 }

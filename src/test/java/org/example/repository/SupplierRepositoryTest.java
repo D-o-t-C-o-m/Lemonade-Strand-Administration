@@ -1,10 +1,11 @@
 package org.example.repository;
 
 import org.example.domain.Supplier;
+import org.example.exceptions.IDNotUniqueException;
 
 public class SupplierRepositoryTest {
 
-public void shouldSaveOneElement_whenSaveIsCalled() {
+public void shouldSaveOneElement_whenSaveIsCalled() throws IDNotUniqueException {
 	SupplierRepository supplierRepository = new SupplierRepository();
 	Supplier supplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
 
@@ -16,7 +17,7 @@ public void shouldSaveOneElement_whenSaveIsCalled() {
 	assert supplierRepository.findById(2) == null;
 }
 
-public void shouldSaveTwoElements_whenSaveIsCalled() {
+public void shouldSaveTwoElements_whenSaveIsCalled() throws IDNotUniqueException {
 		SupplierRepository supplierRepository = new SupplierRepository();
 
 		Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
@@ -38,7 +39,7 @@ public void shouldSaveTwoElements_whenSaveIsCalled() {
 	}
 
 
-public void shouldUpdateSupplier_whenUpdateIsCalled() {
+public void shouldUpdateSupplier_whenUpdateIsCalled() throws IDNotUniqueException {
 	SupplierRepository supplierRepository = new SupplierRepository();
 
 	Supplier supplierToUpdate = new Supplier(1, "Lemonades", "contact@lemonades.com");
@@ -56,7 +57,7 @@ public void shouldUpdateSupplier_whenUpdateIsCalled() {
 
 }
 
-public void shouldDeleteSupplier_whenDeleteIsCalled() {
+public void shouldDeleteSupplier_whenDeleteIsCalled() throws IDNotUniqueException {
 	SupplierRepository supplierRepository = new SupplierRepository();
 	Supplier supplierToDelete = new Supplier(1, "Water", "contact@Water.com");
 
@@ -69,7 +70,7 @@ public void shouldDeleteSupplier_whenDeleteIsCalled() {
 
 }
 
-public void shouldFindAllSupplier_whenFindIsCalled() {
+public void shouldFindAllSupplier_whenFindIsCalled() throws IDNotUniqueException {
 	SupplierRepository supplierRepository = new SupplierRepository();
 	Supplier supplierToFind = new Supplier(1, "Water", "contact@Water.com");
 	supplierRepository.save(supplierToFind);
@@ -83,7 +84,7 @@ public void shouldFindAllSupplier_whenFindIsCalled() {
 	assert secondSupplier.getId() == 2;
 }
 
-public void testAllRepository(){
+public void testAllRepository() throws IDNotUniqueException {
 	shouldSaveOneElement_whenSaveIsCalled();
 	shouldSaveTwoElements_whenSaveIsCalled();
 	shouldUpdateSupplier_whenUpdateIsCalled();
