@@ -5,6 +5,8 @@ import org.example.exceptions.IDNotUniqueException;
 import org.example.exceptions.ValidationException;
 import org.example.repository.SupplierRepository;
 
+import java.io.FileNotFoundException;
+
 public class SupplierServiceTest {
 private SupplierService supplierService;
 
@@ -13,7 +15,7 @@ private void setUp(){
 	supplierService = new SupplierService(supplierRepository);
 }
 
-public void shouldSaveSupplier_whenSavedIsCalled() throws ValidationException, IDNotUniqueException {
+public void shouldSaveSupplier_whenSavedIsCalled() throws ValidationException, IDNotUniqueException, FileNotFoundException {
 	setUp();
 
 	Supplier savedSupplier = supplierService.saveSupplier(1, "Lemonades", "Contact@lemonades.com");
@@ -24,7 +26,7 @@ public void shouldSaveSupplier_whenSavedIsCalled() throws ValidationException, I
 	assert supplierService.findById(1).getName().equals("Lemonades");
 }
 
-public void shouldUpdateSupplier_whenUpdateIsCalled(){
+public void shouldUpdateSupplier_whenUpdateIsCalled() throws FileNotFoundException {
 	setUp();
 	Supplier supplierToUpdate = new Supplier(1, "Lemonades", "Contact@lemonades.com");
 	Supplier updatedSupplier = supplierService.updateSupplier(1, "hom", "Hom@Burgher");
@@ -36,7 +38,7 @@ public void shouldUpdateSupplier_whenUpdateIsCalled(){
 
 }
 
-public void shouldDeleteSupplier_whenDeletedIsCalled() throws ValidationException, IDNotUniqueException {
+public void shouldDeleteSupplier_whenDeletedIsCalled() throws ValidationException, IDNotUniqueException, FileNotFoundException {
 	setUp();
 	Supplier supplierToDelete = supplierService.saveSupplier(1, "Lemonades", "Contact@lemonades.com");
 	supplierService.deleteSupplier(supplierToDelete.getId());
@@ -44,7 +46,7 @@ public void shouldDeleteSupplier_whenDeletedIsCalled() throws ValidationExceptio
 	assert supplierService.findById(1) == null;
 }
 
-public void shouldFindAllSupplier_whenFindAllIsCalled() throws ValidationException, IDNotUniqueException {
+public void shouldFindAllSupplier_whenFindAllIsCalled() throws ValidationException, IDNotUniqueException, FileNotFoundException {
 	setUp();
 	supplierService.saveSupplier(1, "Lemonades", "Contact@lemonades.com");
 	supplierService.saveSupplier(2, "Leo nades", "Coct@leonades.com");
@@ -67,9 +69,11 @@ public void shouldNotSaveTheElement_whenWeAddNotUniqueElement() throws IDNotUniq
 		assert false;
 	} catch (IDNotUniqueException e) {
 		assert true;
+	} catch (FileNotFoundException e) {
+		throw new RuntimeException(e);
 	}
 }
-public void testAllService() throws IDNotUniqueException, ValidationException {
+public void testAllService() throws IDNotUniqueException, ValidationException, FileNotFoundException {
 	shouldSaveSupplier_whenSavedIsCalled();
 	shouldUpdateSupplier_whenUpdateIsCalled();
 	shouldDeleteSupplier_whenDeletedIsCalled();

@@ -5,6 +5,7 @@ import org.example.exceptions.ValidationException;
 import org.example.service.SupplierService;
 import org.example.domain.Supplier;
 
+import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -90,6 +91,8 @@ public void runSuppliersMenu(Scanner scanner) {
 	}
 	} catch (InputMismatchException e) {
 		System.out.println("Please enter a valid number");
+	} catch (FileNotFoundException e) {
+		throw new RuntimeException(e);
 	}
 }
 private void handleAddSupplier(Scanner scanner) {
@@ -98,20 +101,26 @@ private void handleAddSupplier(Scanner scanner) {
 	System.out.println("ID: "+id);
 
 	System.out.println("Name: ");
-	String name = scanner.next();
-
+	String name = scanner.next().trim();
+		if(name.isEmpty()) {
+		System.out.println("Name cannot be empty");
+		return;
+	}
+		scanner.nextLine();
 	System.out.println("Email: ");
-	String email = scanner.next();
+	String email = scanner.next().trim();
 
 	try {
 		Supplier savedSupplier = supplierService.saveSupplier(id, name, email);
 		System.out.printf("The supplier with ID %d was created successfully. %n", savedSupplier.getId());
 	} catch (ValidationException | IDNotUniqueException e) {
-		System.out.println("Error with saving the supplier" + e.getMessage());
+		System.out.println("Error with saving the supplier " + e.getMessage());
+	} catch (FileNotFoundException e) {
+		throw new RuntimeException(e);
 	}
 
 }
-private void handleUpdateSupplier(Scanner scanner) {
+private void handleUpdateSupplier(Scanner scanner) throws FileNotFoundException {
 	System.out.println("ID: ");
 	int id = scanner.nextInt();
 
@@ -124,7 +133,7 @@ private void handleUpdateSupplier(Scanner scanner) {
 	Supplier updatedSupplier = supplierService.updateSupplier(id, name, email);
 	System.out.printf("The supplier with ID %d was updated successfully. %n", updatedSupplier.getId());
 }
-private void handleRemoveSupplier(Scanner scanner) {
+private void handleRemoveSupplier(Scanner scanner) throws FileNotFoundException {
 	System.out.println("ID to Remove: ");
 	int id = scanner.nextInt();
 

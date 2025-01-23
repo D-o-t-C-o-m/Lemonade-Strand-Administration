@@ -1,22 +1,19 @@
 package org.example;
 
-import org.example.repository.SupplierRepository;
+import org.example.exceptions.IDNotUniqueException;
+import org.example.repository.SupplierFileRepository;
 import org.example.service.SupplierService;
 import org.example.userinterface.UserInterface;
 import org.example.validators.SupplierValidator;
 
-//import org.example.MainTest;
-
+import java.io.FileNotFoundException;
 
 public class Main {
-public static void main(String[] args) {
-	SupplierRepository supplierRepository = new SupplierRepository();
-	SupplierService supplierService = new SupplierService(supplierRepository);
-	SupplierValidator supplierValidator = new SupplierValidator();
-	UserInterface userInterface = new UserInterface(supplierService);
+public static void main(String[] args) throws FileNotFoundException, IDNotUniqueException {
 
-	//MainTest tests = new MainTest();
-	//tests.runAllTests();
+	SupplierFileRepository supplierRepository = new SupplierFileRepository("suppliers.csv");
+	SupplierService supplierService = new SupplierService(supplierRepository);
+	UserInterface userInterface = new UserInterface(supplierService);
 
 	userInterface.runMenu();
 }

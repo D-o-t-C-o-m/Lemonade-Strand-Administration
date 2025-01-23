@@ -3,9 +3,11 @@ package org.example.repository;
 import org.example.domain.Supplier;
 import org.example.exceptions.IDNotUniqueException;
 
+import java.io.FileNotFoundException;
+
 public class SupplierRepositoryTest {
 
-public void shouldSaveOneElement_whenSaveIsCalled() throws IDNotUniqueException {
+public void shouldSaveOneElement_whenSaveIsCalled() throws IDNotUniqueException, FileNotFoundException {
 	SupplierRepository supplierRepository = new SupplierRepository();
 	Supplier supplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
 
@@ -17,7 +19,7 @@ public void shouldSaveOneElement_whenSaveIsCalled() throws IDNotUniqueException 
 	assert supplierRepository.findById(2) == null;
 }
 
-public void shouldSaveTwoElements_whenSaveIsCalled() throws IDNotUniqueException {
+public void shouldSaveTwoElements_whenSaveIsCalled() throws IDNotUniqueException, FileNotFoundException {
 		SupplierRepository supplierRepository = new SupplierRepository();
 
 		Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
@@ -39,7 +41,7 @@ public void shouldSaveTwoElements_whenSaveIsCalled() throws IDNotUniqueException
 	}
 
 
-public void shouldUpdateSupplier_whenUpdateIsCalled() throws IDNotUniqueException {
+public void shouldUpdateSupplier_whenUpdateIsCalled() throws IDNotUniqueException, FileNotFoundException {
 	SupplierRepository supplierRepository = new SupplierRepository();
 
 	Supplier supplierToUpdate = new Supplier(1, "Lemonades", "contact@lemonades.com");
@@ -57,7 +59,7 @@ public void shouldUpdateSupplier_whenUpdateIsCalled() throws IDNotUniqueExceptio
 
 }
 
-public void shouldDeleteSupplier_whenDeleteIsCalled() throws IDNotUniqueException {
+public void shouldDeleteSupplier_whenDeleteIsCalled() throws IDNotUniqueException, FileNotFoundException {
 	SupplierRepository supplierRepository = new SupplierRepository();
 	Supplier supplierToDelete = new Supplier(1, "Water", "contact@Water.com");
 
@@ -70,7 +72,7 @@ public void shouldDeleteSupplier_whenDeleteIsCalled() throws IDNotUniqueExceptio
 
 }
 
-public void shouldFindAllSupplier_whenFindIsCalled() throws IDNotUniqueException {
+public void shouldFindAllSupplier_whenFindIsCalled() throws IDNotUniqueException, FileNotFoundException {
 	SupplierRepository supplierRepository = new SupplierRepository();
 	Supplier supplierToFind = new Supplier(1, "Water", "contact@Water.com");
 	supplierRepository.save(supplierToFind);
@@ -84,7 +86,7 @@ public void shouldFindAllSupplier_whenFindIsCalled() throws IDNotUniqueException
 	assert secondSupplier.getId() == 2;
 }
 
-public void testAllRepository() throws IDNotUniqueException {
+public void testAllRepository() throws IDNotUniqueException, FileNotFoundException {
 	shouldSaveOneElement_whenSaveIsCalled();
 	shouldSaveTwoElements_whenSaveIsCalled();
 	shouldUpdateSupplier_whenUpdateIsCalled();

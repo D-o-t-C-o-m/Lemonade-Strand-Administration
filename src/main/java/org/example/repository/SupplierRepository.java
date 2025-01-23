@@ -3,6 +3,7 @@ package org.example.repository;
 import org.example.domain.Supplier;
 import org.example.exceptions.IDNotUniqueException;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public SupplierRepository() {
 	this.suppliers = new HashMap<>();
 }
 
-public Supplier save(Supplier supplier) throws IDNotUniqueException {
+public Supplier save(Supplier supplier) throws IDNotUniqueException, FileNotFoundException {
 	if(suppliers.containsKey(supplier.getId())) {
 		throw new IDNotUniqueException("The ID is not unique");
 	}
@@ -21,13 +22,13 @@ public Supplier save(Supplier supplier) throws IDNotUniqueException {
 	this.suppliers.put(supplier.getId(), supplier);
 	return supplier;
 }
-public Supplier update(Supplier supplier) {
+public Supplier update(Supplier supplier) throws FileNotFoundException {
 	if (this.suppliers.containsKey(supplier.getId())) {
 		this.suppliers.put(supplier.getId(), supplier);
 	}
 	return supplier;
 }
-public void delete(int supplierId) {
+public void delete(int supplierId) throws FileNotFoundException {
 	this.suppliers.remove(supplierId);
 }
 public Iterable<Supplier> findAll() {
