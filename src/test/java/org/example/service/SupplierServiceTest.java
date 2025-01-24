@@ -4,15 +4,17 @@ import org.example.domain.Supplier;
 import org.example.exceptions.IDNotUniqueException;
 import org.example.exceptions.ValidationException;
 import org.example.repository.SupplierRepository;
+import org.example.validators.SupplierValidator;
 
 import java.io.FileNotFoundException;
 
 public class SupplierServiceTest {
 private SupplierService supplierService;
+private SupplierValidator supplierValidator;
 
 private void setUp(){
 	SupplierRepository supplierRepository = new SupplierRepository();
-	supplierService = new SupplierService(supplierRepository);
+	supplierService = new SupplierService(supplierRepository, supplierValidator);
 }
 
 public void shouldSaveSupplier_whenSavedIsCalled() throws ValidationException, IDNotUniqueException, FileNotFoundException {

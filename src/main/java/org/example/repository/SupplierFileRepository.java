@@ -67,7 +67,7 @@ public void writeToFile() throws FileNotFoundException {
 	}
 }
 @Override
-public Supplier save (Supplier supplier) throws FileNotFoundException, IDNotUniqueException {
+public Supplier save (Supplier supplier) throws IDNotUniqueException, FileNotFoundException {
 	Supplier savedSupplier = super.save(supplier);
 	writeToFile();
 	return savedSupplier;

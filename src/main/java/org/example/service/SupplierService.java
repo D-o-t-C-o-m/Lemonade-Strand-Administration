@@ -11,7 +11,7 @@ public class SupplierService {
 private SupplierValidator supplierValidator;
 private SupplierRepository supplierRepository;
 
-public SupplierService(SupplierRepository supplierRepository) {
+public SupplierService(SupplierRepository supplierRepository, SupplierValidator supplierValidator) {
 	this.supplierRepository = supplierRepository;
 	this.supplierValidator = new SupplierValidator();
 }

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class SupplierValidator {
 
-public void validateSupplier(Supplier supplier) throws ValidationException {
+public void validateSupplier(Supplier supplier)  {
 	StringBuilder stringBuilder = new StringBuilder();
 	String name = supplier.getName().trim();
 	if (name.length() < 3 || supplier.getName().length() > 100) {

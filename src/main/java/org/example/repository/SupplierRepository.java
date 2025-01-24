@@ -14,7 +14,7 @@ public SupplierRepository() {
 	this.suppliers = new HashMap<>();
 }
 
-public Supplier save(Supplier supplier) throws IDNotUniqueException, FileNotFoundException {
+public Supplier save(Supplier supplier) throws FileNotFoundException {
 	if(suppliers.containsKey(supplier.getId())) {
 		throw new IDNotUniqueException("The ID is not unique");
 	}
