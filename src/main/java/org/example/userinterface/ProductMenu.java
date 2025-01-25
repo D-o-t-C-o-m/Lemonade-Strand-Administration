@@ -60,17 +60,15 @@ public void runProductsMenu(Scanner scanner) throws FileNotFoundException, Valid
 private void handleAddProduct(Scanner scanner) {
 	System.out.println("Product ID: ");
 	int id = scanner.nextInt();
-
-	System.out.println("Name: ");
-	String name = scanner.next().trim();
 	scanner.nextLine();
+	System.out.println("Name: ");
+	String name = scanner.nextLine().trim();
 
 	System.out.println("Description: ");
-	String description = scanner.next().trim();
-	scanner.nextLine();
+	String description = scanner.nextLine().trim();
 
 	System.out.println("Price: ");
-	int price = scanner.nextInt();
+	double price = scanner.nextDouble();
 
 	System.out.println("Quantity: ");
 	int quantity = scanner.nextInt();
@@ -88,15 +86,15 @@ private void handleAddProduct(Scanner scanner) {
 private void handleUpdateProduct(Scanner scanner) throws FileNotFoundException {
 	System.out.println("ID of product being updated: ");
 	int id = scanner.nextInt();
-
+	scanner.nextLine();
 	System.out.println("New Name: ");
-	String name = scanner.next().trim();
+	String name = scanner.nextLine().trim();
 
 	System.out.println("New Description: ");
-	String description = scanner.next().trim();
+	String description = scanner.nextLine().trim();
 
 	System.out.println("New Price: ");
-	int price = scanner.nextInt();
+	double price = scanner.nextDouble();
 
 	System.out.println("New Quantity: ");
 	int quantity = scanner.nextInt();

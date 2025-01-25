@@ -25,6 +25,7 @@ private void showSuppliersMenu() {
 	System.out.println("3. Remove a supplier");
 	System.out.println("4. Display all suppliers");
 	System.out.println("5. Back to main menu");
+
 	System.out.println("What do you want to do? ");
 	System.out.print("> ");
 }
@@ -63,14 +64,14 @@ private void handleAddSupplier(Scanner scanner) {
 	Random random = new Random();
 	int id = random.nextInt(999);
 	System.out.println("ID: "+id);
-
+	scanner.nextLine();
 	System.out.println("Name: ");
-	String name = scanner.next().trim();
+	String name = scanner.nextLine().trim();
 	if(name.isEmpty()) {
 		System.out.println("Name cannot be empty");
 		return;
 	}
-	scanner.nextLine();
+
 	System.out.println("Email: ");
 	String email = scanner.next().trim();
 
@@ -89,12 +90,12 @@ private void handleAddSupplier(Scanner scanner) {
 private void handleUpdateSupplier(Scanner scanner) throws FileNotFoundException {
 	System.out.println("ID: ");
 	int id = scanner.nextInt();
-
+	scanner.nextLine();
 	System.out.println("Name: ");
-	String name = scanner.next();
+	String name = scanner.nextLine().trim();
 
 	System.out.println("Email: ");
-	String email = scanner.next();
+	String email = scanner.nextLine().trim();
 
 	Supplier updatedSupplier = supplierService.updateSupplier(id, name, email);
 	System.out.printf("The supplier with ID %d was updated successfully. %n", updatedSupplier.getId());

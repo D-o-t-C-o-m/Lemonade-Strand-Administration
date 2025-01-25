@@ -18,7 +18,7 @@ public ProductService(ProductRepository productRepository, ProductValidator prod
 	this.supplierService = supplierService;
 }
 
-public Product saveProduct (int Id, String name, String Description,int price, int quantity, int supplierId) throws IDNotUniqueException, ValidationException {
+public Product saveProduct (int Id, String name, String Description,double price, int quantity, int supplierId) throws ValidationException {
 	Supplier supplier = supplierService.findById(supplierId);
 	Product product = new Product(Id, name, Description, price, quantity, supplier);
 	productValidator.validateProduct(product);
@@ -30,8 +30,9 @@ public void removeProduct (int Id) throws IDNotUniqueException, ValidationExcept
 	productRepository.delete(Id);
 }
 
-public Product updateProduct(int id, String newName, String newDescription, int newPrice, int newQuantity, int newSupplierId) throws IDNotUniqueException, ValidationException {
+public Product updateProduct(int id, String newName, String newDescription, double newPrice, int newQuantity, int newSupplierId) throws ValidationException {
 	Supplier supplier = supplierService.findById(newSupplierId);
+	removeProduct(id);
 	Product productToUpdate = new Product(id, newName, newDescription, newPrice, newQuantity, supplier);
 
 	productValidator.validateProduct(productToUpdate);

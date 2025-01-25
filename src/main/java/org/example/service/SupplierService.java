@@ -17,7 +17,7 @@ public SupplierService(SupplierRepository supplierRepository, SupplierValidator 
 }
 public Supplier saveSupplier(int id, String name, String email) throws ValidationException, IDNotUniqueException, FileNotFoundException {
 	Supplier supplier = new Supplier(id, name, email);
-	supplierValidator.validateSupplier(supplier);
+	//supplierValidator.validateSupplier(supplier);
 	Supplier savedSupplier = supplierRepository.save(supplier);
 
 	return savedSupplier;

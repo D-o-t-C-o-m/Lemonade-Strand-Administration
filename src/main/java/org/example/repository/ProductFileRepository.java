@@ -55,23 +55,23 @@ public List<Product> readProductsFromFile() throws IOException {
 	try{
 		br = new BufferedReader(new FileReader(filename));
 		String line;
+		br.readLine();
 		while ((line = br.readLine()) != null) {
-		String[] parts = line.split(",");
+			String[] parts = line.split(",");
+			int id = Integer.parseInt(parts[0]);
+			String name = parts[1];
+			String description = parts[2];
+			double price = Double.parseDouble(parts[3]);
+			int quantity = Integer.parseInt(parts[4]);
+			int supplierId = Integer.parseInt(parts[5]);
 
-		int id = Integer.parseInt(parts[0]);
-		String name = parts[1];
-		String description = parts[2];
-		int price = Integer.parseInt(parts[3]);
-		int quantity = Integer.parseInt(parts[4]);
-		int supplierId = Integer.parseInt(parts[5]);
+			Supplier supplier = new Supplier();
+			supplier.setId(supplierId);
 
-		Supplier supplier = new Supplier();
-		supplier.setId(supplierId);
+			Product product = new Product(id, name, description, price, quantity, supplier);
+			products.add(product);
 
-		Product product = new Product(id, name, description, price, quantity, supplier);
-		products.add(product);
-
-		}
+			}
 		br.close();
 	} catch (IOException e) {
 		throw new RuntimeException(e);

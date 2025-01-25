@@ -26,6 +26,7 @@ private void clearFile() {
 }
 
 public void shouldSaveToFileOneElement_whenSaveIsCalled() throws IOException {
+	//System.out.println("shouldSaveToFileOneElement_whenSaveIsCalled now running");
 	clearFile();
 	ProductFileRepository fileRepository = new ProductFileRepository(filename);
 	Supplier supplier = new Supplier(1, "Sugar supplier", "supplier@email.com");
@@ -41,6 +42,7 @@ public void shouldSaveToFileOneElement_whenSaveIsCalled() throws IOException {
 	assert savedProduct.getSupplier() != null;
 
 	clearFile();
+	//System.out.println("shouldSaveToFileOneElement_whenSaveIsCalled Passed");
 }
 
 public void testAllProductFileRepository() throws IOException {

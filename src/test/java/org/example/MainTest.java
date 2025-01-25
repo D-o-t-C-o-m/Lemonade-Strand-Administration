@@ -19,20 +19,27 @@ public static void main(String[] args) {
 }
 public static void runAllTests() {
 try{
+	System.out.println("Running Supplier tests");
 	SupplierTest supplierTest = new SupplierTest();
 	supplierTest.testAllDomain();
 
+	System.out.println("Running Supplier Repository tests");
 	SupplierRepositoryTest supplierRepository = new SupplierRepositoryTest();
 	supplierRepository.testAllRepository();
+
+	System.out.println("Running Supplier File Repository tests");
 	SupplierFileRepositoryTest supplierFileRepository = new SupplierFileRepositoryTest("test-supplier.csv");
 	supplierFileRepository.testAllSupplierFileRepository();
 
+	System.out.println("Running Supplier Service tests");
 	SupplierServiceTest supplierServiceTest = new SupplierServiceTest();
 	supplierServiceTest.testAllService();
 
+	System.out.println("Running Product File Repository tests");
 	ProductFileRepositoryTest productFileRepositoryTest = new ProductFileRepositoryTest("test-product.csv");
 	productFileRepositoryTest.testAllProductFileRepository();
 
+	System.out.println("Running Product Service tests");
 	ProductServiceTest productServiceTest = new ProductServiceTest();
 	productServiceTest.testAllProductService();
 
@@ -40,7 +47,7 @@ try{
 
 	System.out.println("All tests have run successfully");
 } catch (ValidationException | IDNotUniqueException | FileNotFoundException e) {
-	System.out.println("The tests have failed, " + e.getMessage());
+	System.out.println("Test failed because " + e.getMessage());
 } catch (IOException e) {
 	throw new RuntimeException(e);
 }
