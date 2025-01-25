@@ -12,7 +12,7 @@ public class SupplierServiceTest {
 private SupplierService supplierService;
 private SupplierValidator supplierValidator;
 
-private void setUp(){
+private void setUp() {
 	SupplierRepository supplierRepository = new SupplierRepository();
 	supplierService = new SupplierService(supplierRepository, supplierValidator);
 }
@@ -60,6 +60,7 @@ public void shouldFindAllSupplier_whenFindAllIsCalled() throws ValidationExcepti
 	assert secondSupplier.getId() == 2;
 
 }
+
 public void shouldNotSaveTheElement_whenWeAddNotUniqueElement() throws IDNotUniqueException {
 	SupplierRepository supplierRepository = new SupplierRepository();
 	Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
@@ -75,6 +76,7 @@ public void shouldNotSaveTheElement_whenWeAddNotUniqueElement() throws IDNotUniq
 		throw new RuntimeException(e);
 	}
 }
+
 public void testAllService() throws IDNotUniqueException, ValidationException, FileNotFoundException {
 	shouldSaveSupplier_whenSavedIsCalled();
 	shouldUpdateSupplier_whenUpdateIsCalled();

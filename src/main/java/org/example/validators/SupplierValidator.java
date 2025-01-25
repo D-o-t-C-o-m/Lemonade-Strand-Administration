@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class SupplierValidator {
 
-public void validateSupplier(Supplier supplier)  {
+public void validateSupplier(Supplier supplier) {
 	StringBuilder stringBuilder = new StringBuilder();
 	String name = supplier.getName().trim();
 	if (name.length() < 3 || supplier.getName().length() > 100) {
@@ -25,12 +25,12 @@ public void validateSupplier(Supplier supplier)  {
 	Pattern pattern = Pattern.compile(regex);
 	Matcher matcher = pattern.matcher(email);
 
-	if(!matcher.matches()) {
+	if (!matcher.matches()) {
 		stringBuilder.append(" Supplier email should be in the pattern: Email@email.com");
 	}
-	if (!stringBuilder.isEmpty()){
+	if (!stringBuilder.isEmpty()) {
 		throw new ValidationException(stringBuilder.toString());
-		}
 	}
+}
 
 }

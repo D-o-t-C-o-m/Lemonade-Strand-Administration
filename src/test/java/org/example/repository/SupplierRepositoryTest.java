@@ -20,25 +20,25 @@ public void shouldSaveOneElement_whenSaveIsCalled() throws IDNotUniqueException,
 }
 
 public void shouldSaveTwoElements_whenSaveIsCalled() throws IDNotUniqueException, FileNotFoundException {
-		SupplierRepository supplierRepository = new SupplierRepository();
+	SupplierRepository supplierRepository = new SupplierRepository();
 
-		Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
-		Supplier firstSavedSuppler = supplierRepository.save(firstSupplierToSave);
+	Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
+	Supplier firstSavedSuppler = supplierRepository.save(firstSupplierToSave);
 
-		Supplier secondSupplierToSave = new Supplier(2, "Water", "contact@Water.com");
-		Supplier secondSavedSuppler = supplierRepository.save(secondSupplierToSave);
+	Supplier secondSupplierToSave = new Supplier(2, "Water", "contact@Water.com");
+	Supplier secondSavedSuppler = supplierRepository.save(secondSupplierToSave);
 
-		assert firstSavedSuppler.getId() == 1;
-		assert firstSavedSuppler.getName().equals("Lemonades");
-		assert supplierRepository.findById(3) == null;
+	assert firstSavedSuppler.getId() == 1;
+	assert firstSavedSuppler.getName().equals("Lemonades");
+	assert supplierRepository.findById(3) == null;
 
-		assert secondSavedSuppler != null;
-		assert secondSavedSuppler.getId() == 2;
-		assert secondSavedSuppler.getName().equals("Water");
+	assert secondSavedSuppler != null;
+	assert secondSavedSuppler.getId() == 2;
+	assert secondSavedSuppler.getName().equals("Water");
 
-		assert supplierRepository.findById(1) != null;
-		assert supplierRepository.findById(2) == null;
-	}
+	assert supplierRepository.findById(1) != null;
+	assert supplierRepository.findById(2) == null;
+}
 
 
 public void shouldUpdateSupplier_whenUpdateIsCalled() throws IDNotUniqueException, FileNotFoundException {

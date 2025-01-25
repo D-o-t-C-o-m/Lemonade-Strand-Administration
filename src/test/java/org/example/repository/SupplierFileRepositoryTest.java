@@ -10,37 +10,37 @@ import java.util.List;
 
 public class SupplierFileRepositoryTest {
 
-	private String filename;
+private String filename;
 
-	public SupplierFileRepositoryTest(String filename) {
-		this.filename = filename;
+public SupplierFileRepositoryTest(String filename) {
+	this.filename = filename;
+}
+
+private void clearFile() {
+	try (FileOutputStream fos = new FileOutputStream(filename)) {
+		// the file is emptied
+	} catch (IOException e) {
+		e.printStackTrace();
 	}
+}
 
-	private void clearFile() {
-		try (FileOutputStream fos = new FileOutputStream(filename)) {
-			// the file is emptied
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+public void shouldSaveToFileOneElement_whenSaveIsCalled() throws IDNotUniqueException, FileNotFoundException {
+	clearFile();
+	SupplierFileRepository fileRepository = new SupplierFileRepository(filename);
+	Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
 
-	public void shouldSaveToFileOneElement_whenSaveIsCalled() throws IDNotUniqueException, FileNotFoundException {
-		clearFile();
-		SupplierFileRepository fileRepository = new SupplierFileRepository(filename);
-		Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
+	Supplier firstSavedSupplier = fileRepository.save(firstSupplierToSave);
 
-		Supplier firstSavedSupplier = fileRepository.save(firstSupplierToSave);
+	List<Supplier> suppliersFromFile = fileRepository.readSupplierFromFile();
 
-		List<Supplier> suppliersFromFile = fileRepository.readSupplierFromFile();
+	assert suppliersFromFile.size() == 1;
+	assert fileRepository.findById(1) != null;
 
-		assert suppliersFromFile.size() == 1;
-		assert fileRepository.findById(1) != null;
+	clearFile();
+}
 
-		clearFile();
-	}
-
-	public void testAllSupplierFileRepository() throws IDNotUniqueException, FileNotFoundException {
-		shouldSaveToFileOneElement_whenSaveIsCalled();
-	}
+public void testAllSupplierFileRepository() throws IDNotUniqueException, FileNotFoundException {
+	shouldSaveToFileOneElement_whenSaveIsCalled();
+}
 }
 

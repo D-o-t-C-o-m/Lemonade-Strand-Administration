@@ -21,19 +21,22 @@ public Product save(Product product) throws IDNotUniqueException {
 	products.put(product.getId(), product);
 	return product;
 }
-public Product update (Product product) {
+
+public Product update(Product product) {
 	if (products.containsKey(product.getId())) {
 		products.put(product.getId(), product);
 	}
 	return product;
 }
 
-public void delete (int productId) {
+public void delete(int productId) {
 	products.remove(productId);
 }
+
 public Iterable<Product> findAll() {
 	return products.values();
 }
+
 public Product findById(int id) {
 	return products.get(id);
 }

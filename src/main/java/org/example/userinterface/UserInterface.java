@@ -6,19 +6,17 @@ import org.example.exceptions.ValidationException;
 import org.example.service.ProductService;
 import org.example.service.SupplierService;
 
-
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class UserInterface {
+private final Scanner scanner = new Scanner(System.in);
 private SupplierService supplierService;
 private ProductService productService;
 private SupplierMenu supplierMenu;
 private ProductMenu productMenu;
-
-private final Scanner scanner = new Scanner(System.in);
 
 public UserInterface(ProductService productService, SupplierService supplierService) {
 	this.supplierService = supplierService;
@@ -28,20 +26,21 @@ public UserInterface(ProductService productService, SupplierService supplierServ
 }
 
 private void showMenu() {
-		System.out.println("Welcome to the Lemonade Stand Administration App.");
-		System.out.println("Main Menu:");
-	    System.out.println("==========");
-		System.out.println("1. Manage suppliers");
-		System.out.println("2. Manage products");
-		System.out.println("3. Manage lemonades recipes");
-		System.out.println("4. Create an order");
-		System.out.println("5. Daily sales report");
-		System.out.println("6. Empty products stock report");
-		System.out.println("7. Exit");
-		System.out.println("\nWhat do you want to do? ");
-	    System.out.print("> ");
+	System.out.println("Welcome to the Lemonade Stand Administration App.");
+	System.out.println("Main Menu:");
+	System.out.println("==========");
+	System.out.println("1. Manage suppliers");
+	System.out.println("2. Manage products");
+	System.out.println("3. Manage lemonades recipes");
+	System.out.println("4. Create an order");
+	System.out.println("5. Daily sales report");
+	System.out.println("6. Empty products stock report");
+	System.out.println("7. Exit");
+	System.out.println("\nWhat do you want to do? ");
+	System.out.print("> ");
 }
-public void runMenu(){
+
+public void runMenu() {
 	Scanner scanner = new Scanner(System.in);
 	int option = -1;
 	try {

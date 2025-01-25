@@ -18,6 +18,7 @@ public ProductFileRepository(String filename) throws IOException, IDNotUniqueExc
 	fileExistenceCheck();
 	loadProductsFromFile();
 }
+
 private void fileExistenceCheck() throws FileNotFoundException {
 	File file = new File(filename);
 	if (!new File(filename).exists()) {
@@ -44,7 +45,7 @@ public Product update(Product product) {
 }
 
 @Override
-public void delete (int Id){
+public void delete(int Id) {
 	super.delete(Id);
 	writeToFile();
 }
@@ -52,7 +53,7 @@ public void delete (int Id){
 public List<Product> readProductsFromFile() throws IOException {
 	List<Product> products = new ArrayList<>();
 	BufferedReader br = null;
-	try{
+	try {
 		br = new BufferedReader(new FileReader(filename));
 		String line;
 		br.readLine();
@@ -71,7 +72,7 @@ public List<Product> readProductsFromFile() throws IOException {
 			Product product = new Product(id, name, description, price, quantity, supplier);
 			products.add(product);
 
-			}
+		}
 		br.close();
 	} catch (IOException e) {
 		throw new RuntimeException(e);
@@ -88,7 +89,7 @@ private void writeToFile() {
 		bw.newLine();
 		Iterable<Product> products = findAll();
 		for (Product product : products) {
-			String line = product.getId()+","+product.getName()+","+product.getDescription()+","+product.getPrice()+","+product.getQuantity()+","+product.getSupplier().getId();
+			String line = product.getId() + "," + product.getName() + "," + product.getDescription() + "," + product.getPrice() + "," + product.getQuantity() + "," + product.getSupplier().getId();
 			bw.write(line);
 			bw.newLine();
 		}

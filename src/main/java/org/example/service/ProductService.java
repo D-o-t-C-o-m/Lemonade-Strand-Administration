@@ -18,7 +18,7 @@ public ProductService(ProductRepository productRepository, ProductValidator prod
 	this.supplierService = supplierService;
 }
 
-public Product saveProduct (int Id, String name, String Description,double price, int quantity, int supplierId) throws ValidationException {
+public Product saveProduct(int Id, String name, String Description, double price, int quantity, int supplierId) throws ValidationException {
 	Supplier supplier = supplierService.findById(supplierId);
 	Product product = new Product(Id, name, Description, price, quantity, supplier);
 	productValidator.validateProduct(product);
@@ -26,7 +26,7 @@ public Product saveProduct (int Id, String name, String Description,double price
 	return savedProduct;
 }
 
-public void removeProduct (int Id) throws IDNotUniqueException, ValidationException {
+public void removeProduct(int Id) throws IDNotUniqueException, ValidationException {
 	productRepository.delete(Id);
 }
 

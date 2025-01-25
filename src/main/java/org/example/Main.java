@@ -9,7 +9,6 @@ import org.example.userinterface.UserInterface;
 import org.example.validators.ProductValidator;
 import org.example.validators.SupplierValidator;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main {
@@ -19,9 +18,9 @@ public static void main(String[] args) throws IOException, IDNotUniqueException 
 	SupplierValidator supplierValidator = new SupplierValidator();
 	SupplierService supplierService = new SupplierService(supplierRepository, supplierValidator);
 
-	ProductFileRepository productRespoitory = new ProductFileRepository("products.csv");
+	ProductFileRepository productRepository = new ProductFileRepository("products.csv");
 	ProductValidator productValidator = new ProductValidator();
-	ProductService productService = new ProductService(productRespoitory, productValidator, supplierService);
+	ProductService productService = new ProductService(productRepository, productValidator, supplierService);
 
 	UserInterface userInterface = new UserInterface(productService, supplierService);
 

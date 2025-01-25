@@ -2,7 +2,6 @@ package org.example.service;
 
 import org.example.domain.Product;
 import org.example.domain.Supplier;
-
 import org.example.exceptions.ValidationException;
 import org.example.repository.ProductRepository;
 import org.example.repository.SupplierRepository;

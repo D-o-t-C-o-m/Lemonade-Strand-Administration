@@ -18,6 +18,7 @@ public ProductMenu(SupplierService supplierService, ProductService productServic
 	this.supplierService = supplierService;
 	this.productService = productService;
 }
+
 private void showProductsMenu() {
 	System.out.println("The Product menu:");
 
@@ -76,7 +77,7 @@ private void handleAddProduct(Scanner scanner) {
 	System.out.println("Supplier Id: ");
 	int supplierId = scanner.nextInt();
 
-	try{
+	try {
 		productService.saveProduct(id, name, description, price, quantity, supplierId);
 	} catch (ValidationException | IDNotUniqueException e) {
 		System.out.println("Error with saving the product " + e.getMessage());
@@ -117,6 +118,7 @@ private void handleRemoveProducts(Scanner scanner) throws FileNotFoundException,
 	productService.removeProduct(id);
 	System.out.printf("The product with ID %d was deleted successfully. %n", id);
 }
+
 private void handleShowProducts() {
 	Iterable<Product> productList = productService.getAllProducts();
 	for (Product product : productList) {

@@ -17,6 +17,7 @@ private SupplierService supplierService;
 public SupplierMenu(SupplierService supplierService) {
 	this.supplierService = supplierService;
 }
+
 private void showSuppliersMenu() {
 	System.out.println("The Suppliers menu:");
 
@@ -63,11 +64,11 @@ public void runSuppliersMenu(Scanner scanner) {
 private void handleAddSupplier(Scanner scanner) {
 	Random random = new Random();
 	int id = random.nextInt(999);
-	System.out.println("ID: "+id);
+	System.out.println("ID: " + id);
 	scanner.nextLine();
 	System.out.println("Name: ");
 	String name = scanner.nextLine().trim();
-	if(name.isEmpty()) {
+	if (name.isEmpty()) {
 		System.out.println("Name cannot be empty");
 		return;
 	}
@@ -116,6 +117,7 @@ private void displaySuppliers(Iterable<Supplier> suppliers) {
 		System.out.println(supplier);
 	}
 }
+
 private void handleShowSuppliers() {
 	Iterable<Supplier> suppliers = supplierService.findAll();
 	displaySuppliers(suppliers);

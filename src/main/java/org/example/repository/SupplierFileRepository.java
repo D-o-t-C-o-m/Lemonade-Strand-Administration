@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierFileRepository extends SupplierRepository{
+public class SupplierFileRepository extends SupplierRepository {
 private String filename;
 
 public SupplierFileRepository(String filename) throws FileNotFoundException, IDNotUniqueException {
@@ -16,6 +16,7 @@ public SupplierFileRepository(String filename) throws FileNotFoundException, IDN
 	fileExistenceCheck();
 	loadSuppliersFromFile();
 }
+
 private void fileExistenceCheck() throws FileNotFoundException {
 	File file = new File(filename);
 	if (!new File(filename).exists()) {
@@ -26,6 +27,7 @@ private void fileExistenceCheck() throws FileNotFoundException {
 		}
 	}
 }
+
 private void loadSuppliersFromFile() throws IDNotUniqueException, FileNotFoundException {
 	List<Supplier> suppliers = readSupplierFromFile();
 	for (Supplier supplier : suppliers) {
@@ -76,8 +78,9 @@ public void writeToFile() throws FileNotFoundException {
 		throw new RuntimeException(e);
 	}
 }
+
 @Override
-public Supplier save (Supplier supplier) throws IDNotUniqueException, FileNotFoundException {
+public Supplier save(Supplier supplier) throws IDNotUniqueException, FileNotFoundException {
 	Supplier savedSupplier = super.save(supplier);
 	writeToFile();
 	return savedSupplier;
@@ -89,8 +92,9 @@ public Supplier update(Supplier supplier) throws FileNotFoundException {
 	writeToFile();
 	return updatedSupplier;
 }
+
 @Override
-public void delete (int SupplierID) throws FileNotFoundException {
+public void delete(int SupplierID) throws FileNotFoundException {
 	super.delete(SupplierID);
 	writeToFile();
 }
