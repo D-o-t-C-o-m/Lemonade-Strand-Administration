@@ -13,9 +13,19 @@ private String filename;
 public SupplierFileRepository(String filename) throws FileNotFoundException, IDNotUniqueException {
 	super();
 	this.filename = filename;
+	fileExistenceCheck();
 	loadSuppliersFromFile();
 }
-
+private void fileExistenceCheck() throws FileNotFoundException {
+	File file = new File(filename);
+	if (!new File(filename).exists()) {
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+}
 private void loadSuppliersFromFile() throws IDNotUniqueException, FileNotFoundException {
 	List<Supplier> suppliers = readSupplierFromFile();
 	for (Supplier supplier : suppliers) {

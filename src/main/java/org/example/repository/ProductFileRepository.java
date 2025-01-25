@@ -10,13 +10,25 @@ import java.util.List;
 
 public class ProductFileRepository extends ProductRepository {
 
-private String fileName;
+private String filename;
 
-public ProductFileRepository(String fileName) throws IOException, IDNotUniqueException {
+public ProductFileRepository(String filename) throws IOException, IDNotUniqueException {
 	super();
-	this.fileName = fileName;
+	this.filename = filename;
+	fileExistenceCheck();
 	loadProductsFromFile();
 }
+private void fileExistenceCheck() throws FileNotFoundException {
+	File file = new File(filename);
+	if (!new File(filename).exists()) {
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+}
+
 @Override
 public Product save(Product product) throws IDNotUniqueException {
 	Product savedProduct = super.save(product);
@@ -41,7 +53,7 @@ public List<Product> readProductsFromFile() throws IOException {
 	List<Product> products = new ArrayList<>();
 	BufferedReader br = null;
 	try{
-		br = new BufferedReader(new FileReader(fileName));
+		br = new BufferedReader(new FileReader(filename));
 		String line;
 		while ((line = br.readLine()) != null) {
 		String[] parts = line.split(",");
@@ -67,10 +79,13 @@ public List<Product> readProductsFromFile() throws IOException {
 	}
 	return products;
 }
+
 private void writeToFile() {
 	BufferedWriter bw = null;
 	try {
-		bw = new BufferedWriter(new FileWriter(fileName));
+		bw = new BufferedWriter(new FileWriter(filename));
+		bw.write("Product ID|Name|Description|Price|Quantity|Supplier ID");
+		bw.newLine();
 		Iterable<Product> products = findAll();
 		for (Product product : products) {
 			String line = product.getId()+","+product.getName()+","+product.getDescription()+","+product.getPrice()+","+product.getQuantity()+","+product.getSupplier().getId();

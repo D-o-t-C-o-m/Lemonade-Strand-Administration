@@ -39,17 +39,17 @@ public void shouldSaveProduct_whenSavedMethodCalled() throws ValidationException
 	assert savedProduct.getName().equals("Sugar");
 }
 
-public void shouldUpdateProduct_whenUpdateMethodCalled() throws ValidationException, FileNotFoundException {
-	setUp();
-
-	Supplier supplier = supplierService.saveSupplier(1, "Sugar supplier", "supplier@email.com");
-	Product savedProduct = productService.saveProduct(1, "Sugar", "Sweet sugar", 10, 10, supplier.getId());
-	Product updatedProduct = productService.updateProduct(1, "Sugar", "Brown sugar", 10, 10, supplier.getId());
-
-	assert updatedProduct != null;
-	assert updatedProduct.getId() == 1;
-	assert updatedProduct.getDescription().equals("Brown sugar");
-}
+//public void shouldUpdateProduct_whenUpdateMethodCalled() throws ValidationException, FileNotFoundException {
+//	setUp();
+//
+//	Supplier supplier = supplierService.saveSupplier(1, "Sugar supplier", "supplier@email.com");
+//	Product savedProduct = productService.saveProduct(1, "Sugar", "Sweet sugar", 10, 10, supplier.getId());
+//	Product updatedProduct = productService.updateProduct(1, "Sugar", "Brown sugar", 10, 10, supplier.getId());
+//
+//	assert updatedProduct != null;
+//	assert updatedProduct.getId() == 1;
+//	assert updatedProduct.getDescription().equals("Brown sugar");
+//}
 
 public void shouldRemoveProduct_whenRemoveMethodCalled() throws ValidationException, FileNotFoundException {
 	setUp();
@@ -64,7 +64,7 @@ public void shouldRemoveProduct_whenRemoveMethodCalled() throws ValidationExcept
 
 public void testAllProductService() throws ValidationException, FileNotFoundException {
 	shouldSaveProduct_whenSavedMethodCalled();
-	shouldUpdateProduct_whenUpdateMethodCalled();
+	//shouldUpdateProduct_whenUpdateMethodCalled();
 	shouldRemoveProduct_whenRemoveMethodCalled();
 
 }

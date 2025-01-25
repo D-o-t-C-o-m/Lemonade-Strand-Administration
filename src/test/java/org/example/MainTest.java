@@ -40,7 +40,7 @@ try{
 
 	System.out.println("All tests have run successfully");
 } catch (ValidationException | IDNotUniqueException | FileNotFoundException e) {
-	System.out.println("The tests have failed, e=" + e.getMessage());
+	System.out.println("The tests have failed, " + e.getMessage());
 } catch (IOException e) {
 	throw new RuntimeException(e);
 }
