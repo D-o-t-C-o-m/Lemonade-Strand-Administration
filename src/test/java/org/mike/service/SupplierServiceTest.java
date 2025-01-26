@@ -62,7 +62,7 @@ public void shouldFindAllSupplier_whenFindAllIsCalled() throws ValidationExcepti
 }
 
 public void shouldNotSaveTheElement_whenWeAddNotUniqueElement() throws IDNotUniqueException {
-	SupplierRepository supplierRepository = new SupplierRepository();
+	GenericRepository<Supplier> supplierRepository = new GenericRepository<Supplier>();
 	Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
 	Supplier secondSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
 

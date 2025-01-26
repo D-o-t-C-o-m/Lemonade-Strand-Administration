@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 public class SupplierRepositoryTest {
 
 public void shouldSaveOneElement_whenSaveIsCalled() throws IDNotUniqueException, FileNotFoundException {
-	SupplierRepository supplierRepository = new SupplierRepository();
+	GenericRepository<Supplier> supplierRepository = new GenericRepository<Supplier>();
 	Supplier supplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
 
 	Supplier firstSavedSuppler = supplierRepository.save(supplierToSave);
@@ -20,7 +20,7 @@ public void shouldSaveOneElement_whenSaveIsCalled() throws IDNotUniqueException,
 }
 
 public void shouldSaveTwoElements_whenSaveIsCalled() throws IDNotUniqueException, FileNotFoundException {
-	SupplierRepository supplierRepository = new SupplierRepository();
+	GenericRepository<Supplier> supplierRepository = new GenericRepository<Supplier>();
 
 	Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
 	Supplier firstSavedSuppler = supplierRepository.save(firstSupplierToSave);
@@ -42,7 +42,7 @@ public void shouldSaveTwoElements_whenSaveIsCalled() throws IDNotUniqueException
 
 
 public void shouldUpdateSupplier_whenUpdateIsCalled() throws IDNotUniqueException, FileNotFoundException {
-	SupplierRepository supplierRepository = new SupplierRepository();
+	GenericRepository<Supplier> supplierRepository = new GenericRepository<Supplier>();
 
 	Supplier supplierToUpdate = new Supplier(1, "Lemonades", "contact@lemonades.com");
 	supplierRepository.save(supplierToUpdate);
@@ -60,7 +60,7 @@ public void shouldUpdateSupplier_whenUpdateIsCalled() throws IDNotUniqueExceptio
 }
 
 public void shouldDeleteSupplier_whenDeleteIsCalled() throws IDNotUniqueException, FileNotFoundException {
-	SupplierRepository supplierRepository = new SupplierRepository();
+	GenericRepository<Supplier> supplierRepository = new GenericRepository<Supplier>();
 	Supplier supplierToDelete = new Supplier(1, "Water", "contact@Water.com");
 
 	supplierRepository.save(supplierToDelete);
@@ -73,7 +73,7 @@ public void shouldDeleteSupplier_whenDeleteIsCalled() throws IDNotUniqueExceptio
 }
 
 public void shouldFindAllSupplier_whenFindIsCalled() throws IDNotUniqueException, FileNotFoundException {
-	SupplierRepository supplierRepository = new SupplierRepository();
+	GenericRepository<Supplier> supplierRepository = new GenericRepository<Supplier>();
 	Supplier supplierToFind = new Supplier(1, "Water", "contact@Water.com");
 	supplierRepository.save(supplierToFind);
 	Supplier supplierToFind2 = new Supplier(2, "Water", "contact@Water.com");

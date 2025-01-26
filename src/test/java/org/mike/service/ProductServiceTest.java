@@ -3,11 +3,8 @@ package org.mike.service;
 import org.mike.domain.Product;
 import org.mike.domain.Supplier;
 import org.mike.exceptions.ValidationException;
-import org.mike.UnusedForNow.ProductRepository;
-import org.mike.UnusedForNow.SupplierRepository;
 import org.mike.repository.GenericRepository;
 import org.mike.validators.ProductValidator;
-import org.mike.validators.SupplierValidator;
 
 import java.io.FileNotFoundException;
 

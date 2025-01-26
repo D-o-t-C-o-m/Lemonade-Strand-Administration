@@ -18,7 +18,7 @@ public SupplierFileRepositoryTest(String filename) {
 
 private void clearFile() {
 	try (FileOutputStream fos = new FileOutputStream(filename)) {
-		// the file is emptied
+		// empties the csv file is emptied
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
@@ -29,7 +29,7 @@ public void shouldSaveToFileOneElement_whenSaveIsCalled() throws IDNotUniqueExce
 	SupplierFileRepository fileRepository = new SupplierFileRepository(filename);
 	Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
 
-	Supplier firstSavedSupplier = fileRepository.save(firstSupplierToSave);
+    fileRepository.save(firstSupplierToSave);
 
 	List<Supplier> suppliersFromFile = fileRepository.readSupplierFromFile();
 
