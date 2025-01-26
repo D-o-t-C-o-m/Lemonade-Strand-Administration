@@ -26,8 +26,7 @@ public UserInterface(ProductService productService, SupplierService supplierServ
 }
 
 private void showMenu() {
-	System.out.println("Welcome to the Lemonade Stand Administration App.");
-	System.out.println("Main Menu:");
+	System.out.println("\nMain Menu:");
 	System.out.println("==========");
 	System.out.println("1. Manage suppliers");
 	System.out.println("2. Manage products");

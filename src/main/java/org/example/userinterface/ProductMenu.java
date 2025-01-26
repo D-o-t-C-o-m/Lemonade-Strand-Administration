@@ -1,6 +1,7 @@
 package org.example.userinterface;
 
 import org.example.domain.Product;
+import org.example.domain.Supplier;
 import org.example.exceptions.IDNotUniqueException;
 import org.example.exceptions.ValidationException;
 import org.example.service.ProductService;
@@ -20,14 +21,15 @@ public ProductMenu(SupplierService supplierService, ProductService productServic
 }
 
 private void showProductsMenu() {
-	System.out.println("The Product menu:");
+	System.out.println("\nProduct menu:");
 
 	System.out.println("===================");
 	System.out.println("1. Add a product");
 	System.out.println("2. Update a product");
 	System.out.println("3. Remove a product");
 	System.out.println("4. Display all products");
-	System.out.println("5. Back to main menu");
+	System.out.println("5. Search for a product by supplier");
+	System.out.println("6. Back to main menu");
 	System.out.println("What do you want to do? ");
 	System.out.print("> ");
 }
@@ -52,6 +54,9 @@ public void runProductsMenu(Scanner scanner) throws FileNotFoundException, Valid
 				handleShowProducts();
 				break;
 			case 5:
+				supplierSearch(scanner);
+				break;
+			case 6:
 				break;
 
 		}
@@ -125,4 +130,40 @@ private void handleShowProducts() {
 		System.out.println(product);
 	}
 }
+
+private void supplierSearch(Scanner scanner) {
+	System.out.println("Supplier to search?");
+	System.out.print("> ");
+	String search = scanner.next().trim();
+	scanner.nextLine();
+	System.out.println("Searching for " + "'"+search+"'");
+	boolean found = false;
+
+	Iterable<Supplier> suppliers = supplierService.findAll();
+
+	for (Supplier supplier : suppliers) {
+		if (supplier.getName().toLowerCase().contains(search.toLowerCase())) {
+			int supplierId = supplier.getId();
+			String supplierName = supplier.getName();
+
+			found = true;
+
+			System.out.println("\n"+supplierName+":\n");
+			Iterable<Product> products = productService.getAllProducts();
+			for (Product product : products) {
+				if (product.getSupplier().getId() == supplierId) {
+					System.out.println("ID, Name, Description");
+					System.out.println(product.getId()+", "+product.getName() + ", " + product.getDescription());
+
+		}
+	}
+			System.out.println();
+
+			}
+		}
+	if (!found) {
+		System.out.println("No Supplier found with that name.");
+	}
+	}
 }
+

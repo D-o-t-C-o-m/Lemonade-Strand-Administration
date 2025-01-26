@@ -23,7 +23,7 @@ public static void main(String[] args) throws IOException, IDNotUniqueException 
 	ProductService productService = new ProductService(productRepository, productValidator, supplierService);
 
 	UserInterface userInterface = new UserInterface(productService, supplierService);
-
+	System.out.println("Welcome to the Lemonade Stand Administration App.");
 	userInterface.runMenu();
 }
 }
