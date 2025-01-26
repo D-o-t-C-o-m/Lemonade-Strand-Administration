@@ -1,4 +1,4 @@
-package org.mike;
+package org.mike.domain;
 
 import java.time.LocalDateTime;
 
