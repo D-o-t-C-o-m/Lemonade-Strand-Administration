@@ -3,8 +3,9 @@ package org.example.service;
 import org.example.domain.Product;
 import org.example.domain.Supplier;
 import org.example.exceptions.ValidationException;
-import org.example.repository.ProductRepository;
-import org.example.repository.SupplierRepository;
+import org.example.UnusedForNow.ProductRepository;
+import org.example.UnusedForNow.SupplierRepository;
+import org.example.repository.GenericRepository;
 import org.example.validators.ProductValidator;
 import org.example.validators.SupplierValidator;
 
@@ -13,15 +14,16 @@ import java.io.FileNotFoundException;
 public class ProductServiceTest {
 
 private SupplierService supplierService;
-
 private ProductService productService;
 
 private void setUp() {
-	SupplierRepository supplierRepository = new SupplierRepository();
+	//SupplierRepository supplierRepository = new SupplierRepository();
+	GenericRepository<Supplier> supplierRespository = new GenericRepository<Supplier>();
 	SupplierValidator supplierValidator = new SupplierValidator();
-	supplierService = new SupplierService(supplierRepository, supplierValidator);
+	supplierService = new SupplierService(supplierRespository, supplierValidator);
 
-	ProductRepository productFileRepository = new ProductRepository();
+	//ProductRepository productFileRepository = new ProductRepository();
+	GenericRepository<Product> productFileRepository = new GenericRepository<Product>();
 	ProductValidator productValidator = new ProductValidator();
 	productService = new ProductService(productFileRepository, productValidator, supplierService);
 

@@ -1,25 +1,26 @@
 package org.example.service;
 
+import org.example.UnusedForNow.SupplierRepository;
 import org.example.domain.Supplier;
 import org.example.exceptions.IDNotUniqueException;
 import org.example.exceptions.ValidationException;
-import org.example.repository.SupplierRepository;
+import org.example.repository.GenericRepository;
 import org.example.validators.SupplierValidator;
 
 import java.io.FileNotFoundException;
 
 public class SupplierService {
 private SupplierValidator supplierValidator;
-private SupplierRepository supplierRepository;
+private GenericRepository<Supplier> supplierRepository;
 
-public SupplierService(SupplierRepository supplierRepository, SupplierValidator supplierValidator) {
+public SupplierService(GenericRepository<Supplier> supplierRepository, SupplierValidator supplierValidator) {
 	this.supplierRepository = supplierRepository;
 	this.supplierValidator = new SupplierValidator();
 }
 
 public Supplier saveSupplier(int id, String name, String email) throws ValidationException, IDNotUniqueException, FileNotFoundException {
 	Supplier supplier = new Supplier(id, name, email);
-	//supplierValidator.validateSupplier(supplier);
+	supplierValidator.validateSupplier(supplier);
 	Supplier savedSupplier = supplierRepository.save(supplier);
 
 	return savedSupplier;

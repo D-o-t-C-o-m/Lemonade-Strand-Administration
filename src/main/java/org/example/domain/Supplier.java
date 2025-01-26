@@ -2,27 +2,17 @@ package org.example.domain;
 
 import java.util.Objects;
 
-public class Supplier {
-private int id;
+public class Supplier extends Entity{
 private String name;
 private String email;
 
 public Supplier() {
-	this.id = -1;
 }
 
 public Supplier(Integer id, String name, String email) {
-	this.id = id;
+	super.id = id;
 	this.name = name;
 	this.email = email;
-}
-
-public int getId() {
-	return id;
-}
-
-public void setId(int id) {
-	this.id = id;
 }
 
 public String getName() {

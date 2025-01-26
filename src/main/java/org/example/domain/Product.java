@@ -1,29 +1,23 @@
 package org.example.domain;
 
-public class Product {
-private int id;
+public class Product extends Entity{
 private String name;
 private String description;
 private int quantity;
 private double price;
 private Supplier supplier;
 
+public Product(){}
+
 public Product(int id, String name, String description, double price, int quantity, Supplier supplier) {
 	this.name = name;
 	this.quantity = quantity;
 	this.price = price;
 	this.supplier = supplier;
-	this.id = id;
+	super.id = id;
 	this.description = description;
 }
 
-public int getId() {
-	return id;
-}
-
-public void setId(int id) {
-	this.id = id;
-}
 
 public String getDescription() {
 	return description;

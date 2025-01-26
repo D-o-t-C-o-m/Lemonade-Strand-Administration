@@ -3,7 +3,8 @@ package org.example.service;
 import org.example.domain.Supplier;
 import org.example.exceptions.IDNotUniqueException;
 import org.example.exceptions.ValidationException;
-import org.example.repository.SupplierRepository;
+import org.example.UnusedForNow.SupplierRepository;
+import org.example.repository.GenericRepository;
 import org.example.validators.SupplierValidator;
 
 import java.io.FileNotFoundException;
@@ -13,7 +14,8 @@ private SupplierService supplierService;
 private SupplierValidator supplierValidator;
 
 private void setUp() {
-	SupplierRepository supplierRepository = new SupplierRepository();
+	//SupplierRepository supplierRepository = new SupplierRepository();
+	GenericRepository<Supplier> supplierRepository = new GenericRepository<Supplier>();
 	supplierService = new SupplierService(supplierRepository, supplierValidator);
 }
 

@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductFileRepository extends ProductRepository {
+public class ProductFileRepository extends GenericRepository<Product> {
 
 private String filename;
 
@@ -31,21 +31,21 @@ private void fileExistenceCheck() throws FileNotFoundException {
 }
 
 @Override
-public Product save(Product product) throws IDNotUniqueException {
+public Product save(Product product) throws IDNotUniqueException, FileNotFoundException {
 	Product savedProduct = super.save(product);
 	writeToFile();
 	return savedProduct;
 }
 
 @Override
-public Product update(Product product) {
+public Product update(Product product) throws FileNotFoundException {
 	Product updatedProduct = super.update(product);
 	writeToFile();
 	return updatedProduct;
 }
 
 @Override
-public void delete(int Id) {
+public void delete(int Id) throws FileNotFoundException {
 	super.delete(Id);
 	writeToFile();
 }

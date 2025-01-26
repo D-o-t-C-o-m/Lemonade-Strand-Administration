@@ -36,7 +36,7 @@ private void showProductsMenu() {
 
 public void runProductsMenu(Scanner scanner) throws FileNotFoundException, ValidationException, IDNotUniqueException {
 	int option = -1;
-	while (option != 5) {
+	while (option != 6) {
 		showProductsMenu();
 		option = scanner.nextInt();
 
@@ -84,7 +84,7 @@ private void handleAddProduct(Scanner scanner) {
 
 	try {
 		productService.saveProduct(id, name, description, price, quantity, supplierId);
-	} catch (ValidationException | IDNotUniqueException e) {
+	} catch (ValidationException | IDNotUniqueException | FileNotFoundException e) {
 		System.out.println("Error with saving the product " + e.getMessage());
 	}
 }
