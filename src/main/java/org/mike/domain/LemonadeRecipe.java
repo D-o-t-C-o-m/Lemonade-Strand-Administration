@@ -1,11 +1,13 @@
 package org.mike.domain;
 
 public class LemonadeRecipe extends Entity {
+private int id;
 private Product product;
 private Lemonade lemonade;
 private int quantity;
 
-public LemonadeRecipe(Product product, Lemonade lemonade, int quantity) {
+public LemonadeRecipe(int id, Product product, Lemonade lemonade, int quantity) {
+	this.id = id;
 	this.product = product;
 	this.lemonade = lemonade;
 	this.quantity = quantity;
@@ -28,5 +30,7 @@ public int getQuantity() {
 public void setQuantity(int quantity) {
 	this.quantity = quantity;
 }
+public int getId() { return id; }
+public void setId(int id) { this.id = id; }
 
 }

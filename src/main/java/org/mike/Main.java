@@ -1,8 +1,13 @@
 package org.mike;
 
+import org.mike.domain.Lemonade;
+import org.mike.domain.LemonadeRecipe;
 import org.mike.exceptions.IDNotUniqueException;
+import org.mike.repository.LemonadeFileRepository;
+import org.mike.repository.LemonadeRecipeFileRepository;
 import org.mike.repository.ProductFileRepository;
 import org.mike.repository.SupplierFileRepository;
+import org.mike.service.LemonadeService;
 import org.mike.service.ProductService;
 import org.mike.service.SupplierService;
 import org.mike.userinterface.UserInterface;
@@ -20,7 +25,11 @@ public static void main(String[] args) throws IOException, IDNotUniqueException 
 	ProductValidator productValidator = new ProductValidator();
 	ProductService productService = new ProductService(productRepository, productValidator, supplierService);
 
-	UserInterface userInterface = new UserInterface(productService, supplierService);
+	LemonadeFileRepository lemonadeRepository = new LemonadeFileRepository("lemonade.csv");
+	LemonadeRecipeFileRepository lemonadeRecipeRepository = new LemonadeRecipeFileRepository("lemonade-recipes.csv");
+	LemonadeService lemonadeService = new LemonadeService(lemonadeRecipeRepository,lemonadeRepository,productService);
+
+	UserInterface userInterface = new UserInterface(productService, supplierService, lemonadeService);
 	System.out.println("Welcome to the Lemonade Stand Administration App.");
 	userInterface.runMenu();
 }

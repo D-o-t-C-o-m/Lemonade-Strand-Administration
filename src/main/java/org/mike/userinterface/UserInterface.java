@@ -3,6 +3,7 @@ package org.mike.userinterface;
 
 import org.mike.exceptions.IDNotUniqueException;
 import org.mike.exceptions.ValidationException;
+import org.mike.service.LemonadeService;
 import org.mike.service.ProductService;
 import org.mike.service.SupplierService;
 
@@ -12,13 +13,14 @@ import java.util.Scanner;
 
 
 public class UserInterface {
-//private final Scanner scanner = new Scanner(System.in);
 private SupplierMenu supplierMenu;
 private ProductMenu productMenu;
+private LemonadeMenu lemonadeMenu;
 
-public UserInterface(ProductService productService, SupplierService supplierService) {
+public UserInterface(ProductService productService, SupplierService supplierService, LemonadeService lemonadeService) {
 	this.supplierMenu = new SupplierMenu(supplierService);
 	this.productMenu = new ProductMenu(supplierService, productService);
+	this.lemonadeMenu = new LemonadeMenu(lemonadeService);
 }
 
 private void showMenu() {
@@ -49,8 +51,9 @@ public void runMenu() {
 				case 2:
 					productMenu.runProductsMenu(scanner);
 					break;
-
-				case 3, 4, 5, 6:
+				case 3:
+					lemonadeMenu.runLemonadeMenu(scanner);
+				case 4, 5, 6:
 					System.out.println("Coming Soon");
 					break;
 				case 7:

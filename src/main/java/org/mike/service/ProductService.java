@@ -44,4 +44,8 @@ public Product updateProduct(int id, String newName, String newDescription, doub
 public Iterable<Product> getAllProducts() {
 	return productRepository.findAll();
 }
+
+public Product findById(int id) {
+	return this.productRepository.findById(id);
+}
 }

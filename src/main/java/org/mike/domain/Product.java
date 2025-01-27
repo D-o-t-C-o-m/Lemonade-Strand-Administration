@@ -7,7 +7,9 @@ private int quantity;
 private double price;
 private Supplier supplier;
 
-public Product(){}
+public Product(int id) {
+	super.id = id;
+}
 
 public Product(int id, String name, String description, double price, int quantity, Supplier supplier) {
 	this.name = name;

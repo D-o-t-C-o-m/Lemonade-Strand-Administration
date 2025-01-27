@@ -3,7 +3,9 @@ package org.mike.repository;
 import org.mike.domain.Entity;
 import org.mike.exceptions.IDNotUniqueException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +43,17 @@ public Iterable<T> findAll() {
 }
 public T findById(int entityId) {
 	return entities.get(entityId);
+}
+
+public void fileExistenceCheck(String filename) {
+	File file = new File(filename);
+	if (!new File(filename).exists()) {
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
 
 }

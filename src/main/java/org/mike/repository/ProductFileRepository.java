@@ -15,19 +15,8 @@ private String filename;
 public ProductFileRepository(String filename) throws IOException, IDNotUniqueException {
 	super();
 	this.filename = filename;
-	fileExistenceCheck();
+	super.fileExistenceCheck(filename);
 	loadProductsFromFile();
-}
-
-private void fileExistenceCheck() {
-	File file = new File(filename);
-	if (!new File(filename).exists()) {
-		try {
-			file.createNewFile();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
 }
 
 @Override

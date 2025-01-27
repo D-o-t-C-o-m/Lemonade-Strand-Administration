@@ -1,19 +1,25 @@
 package org.mike.domain;
 
 public class Lemonade extends Entity{
+private int id;
 private String name;
-private int totalPrice;
+private double totalPrice;
 
-public Lemonade(String name) {
+public Lemonade (int id) {
+	super.id = id;
+}
+public Lemonade(int id,String name, double totalPrice) {
 	this.name = name;
+	super.id = id;
+	this.totalPrice = totalPrice;
 }
 public String getName() {
 	return name;
 }
-public int getTotalPrice() {
+public double getTotalPrice() {
 	return totalPrice;
 }
-public void setTotalPrice(int totalPrice) {
+public void setTotalPrice(double totalPrice) {
 	this.totalPrice = totalPrice;
 }
 public void setName(String name) {
