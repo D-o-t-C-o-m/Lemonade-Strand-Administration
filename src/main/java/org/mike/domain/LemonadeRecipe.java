@@ -1,52 +1,55 @@
 package org.mike.domain;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LemonadeRecipe extends Entity {
 private int id;
-private Product product;
+private Map<Product, Integer> productQuantities; // Map to store products and their quantities
 private Lemonade lemonade;
-private int quantity;
 
-public LemonadeRecipe(int id, Product product, Lemonade lemonade, int quantity) {
+public LemonadeRecipe(int id, Lemonade lemonade) {
 	this.id = id;
-	this.product = product;
 	this.lemonade = lemonade;
-	this.quantity = quantity;
+	this.productQuantities = new HashMap<>();
 }
-public Product getProduct() {
-	return product;
+
+public Map<Product, Integer> getProductQuantities() {
+	return productQuantities;
 }
+
 public Lemonade getLemonade() {
 	return lemonade;
 }
-public void setProduct(Product product) {
-	this.product = product;
-}
+
 public void setLemonade(Lemonade lemonade) {
 	this.lemonade = lemonade;
 }
-public int getQuantity() {
-	return quantity;
+
+public int getId() {
+	return id;
 }
-public void setQuantity(int quantity) {
-	this.quantity = quantity;
+
+public void setId(int id) {
+	this.id = id;
 }
-public int getId() { return id; }
-public void setId(int id) { this.id = id; }
+
+public void addProduct(Product product, int quantity) {
+	productQuantities.put(product, productQuantities.getOrDefault(product, 0) + quantity);
+}
+
 @Override
 public boolean equals(Object obj) {
 	if (this == obj) return true;
 	if (obj == null || getClass() != obj.getClass()) return false;
 
 	LemonadeRecipe other = (LemonadeRecipe) obj;
-	return this.product.equals(other.product) &&
-			this.lemonade.equals(other.lemonade) &&
-			this.quantity == other.quantity;
+	return this.lemonade.equals(other.lemonade) && this.productQuantities.equals(other.productQuantities);
 }
 
 @Override
 public int hashCode() {
-	return Objects.hash(product, lemonade, quantity);
+	return Objects.hash(lemonade, productQuantities);
 }
 }

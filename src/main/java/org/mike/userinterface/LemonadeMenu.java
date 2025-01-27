@@ -2,12 +2,14 @@ package org.mike.userinterface;
 
 import org.mike.domain.Lemonade;
 import org.mike.domain.LemonadeRecipe;
+import org.mike.domain.Product;
 import org.mike.repository.LemonadeFileRepository;
 import org.mike.repository.LemonadeRecipeFileRepository;
 import org.mike.service.LemonadeService;
 import org.mike.service.ProductService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LemonadeMenu {
@@ -62,8 +64,14 @@ private void handleShowLemonadeRecipes(Scanner scanner) {
 
 	List<LemonadeRecipe> requestedLemonadeRecipe = lemonadeService.findLemonadeRecipe(lemonadeId);
 	System.out.println("The requested lemonade contains: ");
+
 	for (LemonadeRecipe lemonadeRecipe : requestedLemonadeRecipe) {
-		System.out.println(lemonadeRecipe.getQuantity() + " " + lemonadeRecipe.getProduct().getName());
+		for (Map.Entry<Product, Integer> entry : lemonadeRecipe.getProductQuantities().entrySet()) {
+			Product product = entry.getKey();
+			int quantity = entry.getValue();
+
+			System.out.println(quantity + " " + product.getName());
+		}
 	}
 }
 }

@@ -3,20 +3,27 @@ package org.mike.repository;
 import org.mike.domain.Lemonade;
 import org.mike.domain.LemonadeRecipe;
 import org.mike.domain.Product;
+import org.mike.domain.Supplier;
 import org.mike.exceptions.IDNotUniqueException;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class LemonadeRecipeFileRepository extends GenericRepository<LemonadeRecipe>{
-	private String filename;
-	private GenericRepository<Product> productRepository;
-	private GenericRepository<Lemonade> lemonadeRepository;
 
-public LemonadeRecipeFileRepository(String filename) throws IOException, IDNotUniqueException {
+public class LemonadeRecipeFileRepository extends GenericRepository<LemonadeRecipe> {
+private String filename;
+private GenericRepository<Product> productRepository;
+private GenericRepository<Lemonade> lemonadeRepository;
+private GenericRepository<Supplier> supplierRepository;
+
+
+public LemonadeRecipeFileRepository(String filename, GenericRepository<Product> productRepository, GenericRepository<Lemonade> lemonadeRepository, GenericRepository<Supplier> supplierRepository) throws IOException, IDNotUniqueException {
 	super();
 	this.filename = filename;
+	this.supplierRepository = supplierRepository;
+	this.productRepository = productRepository;
+	this.lemonadeRepository = lemonadeRepository;
 	super.fileExistenceCheck(filename);
 	loadLemonadesFromFile();
 }
@@ -41,46 +48,67 @@ public void delete(int Id) throws FileNotFoundException {
 	writeToFile();
 }
 
-public List<LemonadeRecipe> readLemonadeRecipesFromFile() {
-	List<LemonadeRecipe> lemonadeRecipes = new ArrayList<>();
+public Map<Integer, LemonadeRecipe> readLemonadeRecipesFromFile() {
+	Map<Integer, LemonadeRecipe> recipes = new HashMap<>();
 	BufferedReader br;
+
 	try {
 		br = new BufferedReader(new FileReader(filename));
 		String line;
 		br.readLine();
+
 		while ((line = br.readLine()) != null) {
 			String[] parts = line.split(",");
-			int id = Integer.parseInt(parts[0]);
+			int recipeId = Integer.parseInt(parts[0]); // Recipe ID
 			int productId = Integer.parseInt(parts[1]);
-			int lemonadeId = Integer.parseInt(parts[2]);
+			int vendorId = Integer.parseInt(parts[2]);
 			int quantity = Integer.parseInt(parts[3]);
 
-			Product product = new Product(productId);
-			Lemonade lemonade = new Lemonade(lemonadeId);
+			Supplier supplier = supplierRepository.findById(vendorId);
 
-			LemonadeRecipe lemonadeRecipe = new LemonadeRecipe(id,product,lemonade,quantity);
-			lemonadeRecipes.add(lemonadeRecipe);
 
+			Product product = productRepository.findById(productId);
+			if (product == null) {
+				continue;
+			}
+
+			Lemonade lemonade = lemonadeRepository.findById(recipeId);
+			if (lemonade == null) {
+				continue;
+			}
+
+			LemonadeRecipe recipe = recipes.get(recipeId);
+			if (recipe == null) {
+				recipe = new LemonadeRecipe(recipeId, lemonade);
+				recipes.put(recipeId, recipe);
+			}
+			recipe.addProduct(product, quantity);
 		}
+
 		br.close();
 	} catch (IOException e) {
 		throw new RuntimeException(e);
-
 	}
-	return lemonadeRecipes;
+	return recipes;
 }
 
 private void writeToFile() {
 	BufferedWriter bw;
 	try {
 		bw = new BufferedWriter(new FileWriter(filename));
-		bw.write("Recipe ID, Product ID, Lemonade ID, Quantity");
+		bw.write("Recipe ID|Product ID|Lemonade ID|Quantity");
 		bw.newLine();
+
 		Iterable<LemonadeRecipe> lemonadeRecipes = findAll();
 		for (LemonadeRecipe lemonadeRecipe : lemonadeRecipes) {
-			String line = lemonadeRecipe.getId() + "," + lemonadeRecipe.getProduct().getId() + ","  + lemonadeRecipe.getLemonade().getId() + "," + lemonadeRecipe.getQuantity();
-			bw.write(line);
-			bw.newLine();
+			for (Map.Entry<Product, Integer> entry : lemonadeRecipe.getProductQuantities().entrySet()) {
+				Product product = entry.getKey();
+				int quantity = entry.getValue();
+
+				String line = lemonadeRecipe.getId() + "," + product.getId() + "," + lemonadeRecipe.getLemonade().getId() + "," + quantity;
+				bw.write(line);
+				bw.newLine();
+			}
 		}
 		bw.close();
 	} catch (IOException e) {
@@ -89,11 +117,10 @@ private void writeToFile() {
 }
 
 private void loadLemonadesFromFile() throws IDNotUniqueException, IOException {
-	List<LemonadeRecipe> lemonadeRecipes = readLemonadeRecipesFromFile();
-	for (LemonadeRecipe lemonadeRecipe : lemonadeRecipes) {
-		this.save(lemonadeRecipe);
+	Map<Integer, LemonadeRecipe> recipes = readLemonadeRecipesFromFile();
+	for (LemonadeRecipe recipe : recipes.values()) {
+		this.save(recipe);
 	}
 }
-
 }
 

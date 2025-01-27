@@ -4,8 +4,10 @@ import org.mike.domain.Lemonade;
 import org.mike.domain.LemonadeRecipe;
 import org.mike.domain.Product;
 import org.mike.repository.GenericRepository;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class LemonadeService {
 private GenericRepository<Lemonade> lemonadeRepository;
@@ -24,20 +26,21 @@ public List<LemonadeRecipe> findLemonadeRecipe(int lemonadeId) {
 
 	for (LemonadeRecipe lemonadeRecipe : allLemonadeRecipes) {
 		if (lemonadeRecipe.getLemonade().getId() == lemonadeId) {
-			Product loadedProduct = productService.findById(lemonadeRecipe.getProduct().getId());
-			lemonadeRecipe.setProduct(loadedProduct);
-
+			for (Map.Entry<Product, Integer> entry : lemonadeRecipe.getProductQuantities().entrySet()) {
+				Product loadedProduct = productService.findById(entry.getKey().getId());
+				int productId = loadedProduct.getId();
+				entry.setValue(productId);
+			}
 			recipeForTheRequestedLemonade.add(lemonadeRecipe);
 		}
 	}
-
-
 	return recipeForTheRequestedLemonade;
 }
 
 public Lemonade findById(int lemonadeId) {
 	return lemonadeRepository.findById(lemonadeId);
 }
+
 public Iterable<Lemonade> findAll() {
 	return lemonadeRepository.findAll();
 }
