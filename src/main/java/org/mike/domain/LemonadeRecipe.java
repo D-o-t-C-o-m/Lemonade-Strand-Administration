@@ -1,5 +1,7 @@
 package org.mike.domain;
 
+import java.util.Objects;
+
 public class LemonadeRecipe extends Entity {
 private int id;
 private Product product;
@@ -32,5 +34,19 @@ public void setQuantity(int quantity) {
 }
 public int getId() { return id; }
 public void setId(int id) { this.id = id; }
+@Override
+public boolean equals(Object obj) {
+	if (this == obj) return true;
+	if (obj == null || getClass() != obj.getClass()) return false;
 
+	LemonadeRecipe other = (LemonadeRecipe) obj;
+	return this.product.equals(other.product) &&
+			this.lemonade.equals(other.lemonade) &&
+			this.quantity == other.quantity;
+}
+
+@Override
+public int hashCode() {
+	return Objects.hash(product, lemonade, quantity);
+}
 }

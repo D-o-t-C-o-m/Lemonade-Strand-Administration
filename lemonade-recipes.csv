@@ -1,2 +1,2 @@
-Lemonade ID|Name|Price
-1,1,1,2
+Recipe ID, Product ID, Lemonade ID, Quantity
+1,3,2,5

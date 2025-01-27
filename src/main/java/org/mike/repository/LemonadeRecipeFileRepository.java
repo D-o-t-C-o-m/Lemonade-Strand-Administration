@@ -74,7 +74,7 @@ private void writeToFile() {
 	BufferedWriter bw;
 	try {
 		bw = new BufferedWriter(new FileWriter(filename));
-		bw.write("Lemonade ID|Name|Price");
+		bw.write("Recipe ID, Product ID, Lemonade ID, Quantity");
 		bw.newLine();
 		Iterable<LemonadeRecipe> lemonadeRecipes = findAll();
 		for (LemonadeRecipe lemonadeRecipe : lemonadeRecipes) {
