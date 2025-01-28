@@ -26,11 +26,6 @@ public List<LemonadeRecipe> findLemonadeRecipe(int lemonadeId) {
 
 	for (LemonadeRecipe lemonadeRecipe : allLemonadeRecipes) {
 		if (lemonadeRecipe.getLemonade().getId() == lemonadeId) {
-			for (Map.Entry<Product, Integer> entry : lemonadeRecipe.getProductQuantities().entrySet()) {
-				Product loadedProduct = productService.findById(entry.getKey().getId());
-				int productId = loadedProduct.getId();
-				entry.setValue(productId);
-			}
 			recipeForTheRequestedLemonade.add(lemonadeRecipe);
 		}
 	}

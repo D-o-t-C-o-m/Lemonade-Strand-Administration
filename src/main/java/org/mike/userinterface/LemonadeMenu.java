@@ -67,6 +67,7 @@ private void handleShowLemonadeRecipes(Scanner scanner) {
 
 	for (LemonadeRecipe lemonadeRecipe : requestedLemonadeRecipe) {
 		for (Map.Entry<Product, Integer> entry : lemonadeRecipe.getProductQuantities().entrySet()) {
+
 			Product product = entry.getKey();
 			int quantity = entry.getValue();
 
