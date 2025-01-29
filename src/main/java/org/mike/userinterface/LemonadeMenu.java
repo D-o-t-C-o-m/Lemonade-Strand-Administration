@@ -8,6 +8,7 @@ import org.mike.repository.LemonadeRecipeFileRepository;
 import org.mike.service.LemonadeService;
 import org.mike.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,11 +17,13 @@ public class LemonadeMenu {
 private LemonadeService lemonadeService;
 private LemonadeFileRepository lemonadeRepository;
 private LemonadeRecipeFileRepository lemonadeRecipeRepository;
+private ProductService productService;
 
-public LemonadeMenu(LemonadeService lemonadeService) {
+public LemonadeMenu(LemonadeService lemonadeService, ProductService productService) {
 	this.lemonadeService = lemonadeService;
 	this.lemonadeRepository = lemonadeRepository;
 	this.lemonadeRecipeRepository = lemonadeRecipeRepository;
+	this.productService = productService;
 }
 public void runLemonadeMenu(Scanner scanner) {
 	int option = -1;
@@ -75,4 +78,40 @@ private void handleShowLemonadeRecipes(Scanner scanner) {
 		}
 	}
 }
+public void lemonadeOutOfStockReport() {
+	List<LemonadeRecipe> recipe = lemonadeService.findAllLemonadeRecipe();
+	Iterable<Product> onHands = productService.getAllProducts();
+	String currentLemonade = "";
+	Boolean OOS = false;
+
+	for (LemonadeRecipe lemonadeRecipe : recipe) {
+		int qtyNeed = 0;
+		int qtyOnHand = 0;
+		Lemonade current = lemonadeRecipe.getLemonade();
+		currentLemonade = current.getName();
+
+		ArrayList<Product> recipeUsage = new ArrayList<Product>();
+
+		for (Map.Entry<Product, Integer> entry : lemonadeRecipe.getProductQuantities().entrySet()) {
+
+			Product product = entry.getKey();
+			int quantity = entry.getValue();
+			qtyNeed += quantity;
+			recipeUsage.add(product);
+		}
+
+		for (Product product : recipeUsage) {
+			int quantity = product.getQuantity();
+			qtyOnHand += quantity;
+		}
+		if (qtyNeed < qtyOnHand) {
+			OOS = true;
+			System.out.println(currentLemonade + " does not have enough ingredients to be made at this time.");
+		}
+	}
+	if (!OOS) {
+		System.out.println("We have everything we need to make all of our Lemonade");
+	}
 }
+}
+

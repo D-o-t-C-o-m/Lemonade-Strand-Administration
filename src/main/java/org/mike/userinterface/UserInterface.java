@@ -20,7 +20,7 @@ private LemonadeMenu lemonadeMenu;
 public UserInterface(ProductService productService, SupplierService supplierService, LemonadeService lemonadeService) {
 	this.supplierMenu = new SupplierMenu(supplierService);
 	this.productMenu = new ProductMenu(supplierService, productService);
-	this.lemonadeMenu = new LemonadeMenu(lemonadeService);
+	this.lemonadeMenu = new LemonadeMenu(lemonadeService, productService);
 }
 
 private void showMenu() {
@@ -53,9 +53,11 @@ public void runMenu() {
 					break;
 				case 3:
 					lemonadeMenu.runLemonadeMenu(scanner);
-				case 4, 5, 6:
+				case 4, 5:
 					System.out.println("Coming Soon");
 					break;
+				case 6:
+					lemonadeMenu.lemonadeOutOfStockReport();
 				case 7:
 					break;
 			}

@@ -1,7 +1,5 @@
 package org.mike;
 
-import org.mike.domain.Lemonade;
-import org.mike.domain.LemonadeRecipe;
 import org.mike.exceptions.IDNotUniqueException;
 import org.mike.repository.LemonadeFileRepository;
 import org.mike.repository.LemonadeRecipeFileRepository;
@@ -27,7 +25,7 @@ public static void main(String[] args) throws IOException, IDNotUniqueException 
 
 	LemonadeFileRepository lemonadeRepository = new LemonadeFileRepository("lemonade.csv");
 	LemonadeRecipeFileRepository lemonadeRecipeRepository = new LemonadeRecipeFileRepository("lemonade-recipes.csv",productRepository,lemonadeRepository,supplierRepository);
-	LemonadeService lemonadeService = new LemonadeService(lemonadeRecipeRepository,lemonadeRepository,productService);
+	LemonadeService lemonadeService = new LemonadeService(lemonadeRecipeRepository,lemonadeRepository);
 
 	UserInterface userInterface = new UserInterface(productService, supplierService, lemonadeService);
 	System.out.println("Welcome to the Lemonade Stand Administration App.");
