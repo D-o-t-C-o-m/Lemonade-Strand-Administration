@@ -4,6 +4,7 @@ package org.mike.userinterface;
 import org.mike.exceptions.IDNotUniqueException;
 import org.mike.exceptions.ValidationException;
 import org.mike.service.LemonadeService;
+import org.mike.service.OrderService;
 import org.mike.service.ProductService;
 import org.mike.service.SupplierService;
 
@@ -16,11 +17,14 @@ public class UserInterface {
 private SupplierMenu supplierMenu;
 private ProductMenu productMenu;
 private LemonadeMenu lemonadeMenu;
+private OrderMenu orderMenu;
 
-public UserInterface(ProductService productService, SupplierService supplierService, LemonadeService lemonadeService) {
+
+public UserInterface(ProductService productService, SupplierService supplierService, LemonadeService lemonadeService, OrderService orderService) {
 	this.supplierMenu = new SupplierMenu(supplierService);
 	this.productMenu = new ProductMenu(supplierService, productService);
 	this.lemonadeMenu = new LemonadeMenu(lemonadeService, productService);
+	this.orderMenu = new OrderMenu(orderService);
 }
 
 private void showMenu() {
@@ -53,7 +57,10 @@ public void runMenu() {
 					break;
 				case 3:
 					lemonadeMenu.runLemonadeMenu(scanner);
-				case 4, 5:
+				case 4:
+					orderMenu.runOrderOption(scanner);
+					break;
+			     case 5:
 					System.out.println("Coming Soon");
 					break;
 				case 6:

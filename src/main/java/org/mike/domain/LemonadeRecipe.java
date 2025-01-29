@@ -18,7 +18,22 @@ public LemonadeRecipe(int id, Lemonade lemonade) {
 public Map<Product, Integer> getProductQuantities() {
 	return productQuantities;
 }
-
+public int getQuantity(int id) {
+	for (Map.Entry<Product, Integer> entry : productQuantities.entrySet()) {
+		if (entry.getKey().getId() == id) {
+			return entry.getValue();
+		}
+	}
+	return 0;
+}
+public Product getProduct(int id) {
+	for (Map.Entry<Product, Integer> entry : productQuantities.entrySet()) {
+		if (entry.getKey().getId() == id) {
+			return entry.getKey();
+		}
+	}
+	return null;
+}
 public Lemonade getLemonade() {
 	return lemonade;
 }
@@ -52,4 +67,7 @@ public boolean equals(Object obj) {
 public int hashCode() {
 	return Objects.hash(lemonade, productQuantities);
 }
+
+
+
 }

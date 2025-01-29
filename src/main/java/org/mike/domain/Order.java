@@ -1,13 +1,18 @@
 package org.mike.domain;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
-public class Order {
+public class Order extends Entity {
+
+private Lemonade lemonade;
 private int quantity;
-private int finalPrice;
-private LocalDateTime date;
+private double finalPrice;
+private Date date;
 
-public Order(int quantity, int finalPrice, LocalDateTime date) {
+public Order(int id, Lemonade lemonade, int quantity, double finalPrice, Date date) {
+	super(id);
+	this.lemonade = lemonade;
 	this.quantity = quantity;
 	this.finalPrice = finalPrice;
 	this.date = date;
@@ -15,19 +20,25 @@ public Order(int quantity, int finalPrice, LocalDateTime date) {
 public int getQuantity() {
 	return quantity;
 }
-public int getFinalPrice() {
+public double getFinalPrice() {
 	return finalPrice;
 }
-public LocalDateTime getDate() {
+public Date getDate() {
 	return date;
 }
 public void setQuantity(int quantity) {
 	this.quantity = quantity;
 }
-public void setFinalPrice(int finalPrice) {
+public void setFinalPrice(double finalPrice) {
 	this.finalPrice = finalPrice;
 }
-public void setDate(LocalDateTime date) {
+public void setDate(Date date) {
 	this.date = date;
+}
+public Lemonade getLemonade() {
+	return lemonade;
+}
+public void setLemonade(Lemonade lemonade) {
+	this.lemonade = lemonade;
 }
 }
