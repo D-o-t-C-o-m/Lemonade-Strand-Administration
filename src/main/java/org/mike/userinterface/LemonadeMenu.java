@@ -82,7 +82,7 @@ public void lemonadeOutOfStockReport() {
 	List<LemonadeRecipe> recipe = lemonadeService.findAllLemonadeRecipe();
 	Iterable<Product> onHands = productService.getAllProducts();
 	String currentLemonade = "";
-	Boolean OOS = false;
+	boolean OOS = false;
 
 	for (LemonadeRecipe lemonadeRecipe : recipe) {
 		int qtyNeed = 0;
@@ -104,7 +104,7 @@ public void lemonadeOutOfStockReport() {
 			int quantity = product.getQuantity();
 			qtyOnHand += quantity;
 		}
-		if (qtyNeed < qtyOnHand) {
+		if (qtyNeed > qtyOnHand) {
 			OOS = true;
 			System.out.println(currentLemonade + " does not have enough ingredients to be made at this time.");
 		}

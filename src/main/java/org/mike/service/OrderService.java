@@ -3,13 +3,13 @@ package org.mike.service;
 import org.mike.domain.Lemonade;
 import org.mike.domain.LemonadeRecipe;
 import org.mike.domain.Product;
+import org.mike.dtos.DailySalesDTO;
 import org.mike.exceptions.ValidationException;
 import org.mike.repository.OrderFileRepository;
-import org.mike.service.LemonadeService;
-import org.mike.service.ProductService;
 import org.mike.domain.Order;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -70,5 +70,23 @@ private boolean isEnoughInStockForOrder(List<LemonadeRecipe> recipe, int orderQu
 		}
 	}
 	return true;
+}
+public List<DailySalesDTO> getDailyReport(){
+	List<DailySalesDTO> report = new ArrayList<>();
+	Iterable<Order> orders = orderFileRepository.findAll();
+	for (Order order : orders) {
+		Date orderDate = order.getDate();
+		boolean alreadyAddedDay = false;
+		for (DailySalesDTO day : report) {
+			if (day.getDay().equals(orderDate)) {
+				alreadyAddedDay = true;
+				day.setSalesDollars(day.getSalesDollars() + order.getFinalPrice());
+				day.setTotalSales(day.getTotalSales() + order.getQuantity());
+			}
+		}
+		if (!alreadyAddedDay) {
+			report.add(new DailySalesDTO(order.getDate(),order.getQuantity(),order.getFinalPrice()));
+		}
+	} return report;
 }
 }

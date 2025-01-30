@@ -61,7 +61,7 @@ public void runMenu() {
 					orderMenu.runOrderOption(scanner);
 					break;
 			     case 5:
-					System.out.println("Coming Soon");
+					orderMenu.runDailyReport();
 					break;
 				case 6:
 					lemonadeMenu.lemonadeOutOfStockReport();

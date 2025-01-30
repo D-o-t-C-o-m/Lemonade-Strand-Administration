@@ -1,11 +1,13 @@
 package org.mike.userinterface;
 
 import org.mike.domain.Order;
+import org.mike.dtos.DailySalesDTO;
 import org.mike.exceptions.IDNotUniqueException;
 import org.mike.exceptions.ValidationException;
 import org.mike.service.OrderService;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 public class OrderMenu {
@@ -14,7 +16,7 @@ public OrderMenu(OrderService orderService) {
 	this.orderService = orderService;
 }
 public void runOrderOption(Scanner scanner) {
-	System.out.println("You want to create a new order.");
+	System.out.println("Placing a new order.");
 
 	System.out.print("Order id: ");
 	int id = scanner.nextInt();
@@ -35,4 +37,15 @@ public void runOrderOption(Scanner scanner) {
 	}
 }
 
+public void runDailyReport(){
+		System.out.println("You want to create a daily report.");
+
+		List<DailySalesDTO> report = orderService.getDailyReport();
+		for(DailySalesDTO day: report){
+			String reportLine = "For the day %s the total items sold %d, for a total of %.2f\n";
+			String reportLineFormatted = String.format(reportLine, day.getDayString(), day.getTotalSales(), day.getSalesDollars());
+			System.out.println(reportLineFormatted);
+		}
+	}
 }
+
