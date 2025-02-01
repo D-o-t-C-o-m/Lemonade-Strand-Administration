@@ -8,6 +8,7 @@ import org.mike.service.OrderService;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class OrderMenu {
@@ -18,8 +19,10 @@ public OrderMenu(OrderService orderService) {
 public void runOrderOption(Scanner scanner) {
 	System.out.println("Placing a new order.");
 
-	System.out.print("Order id: ");
-	int id = scanner.nextInt();
+	Random random = new Random();
+	int id = random.nextInt(999);
+	System.out.println("You are Order: " + id);
+	scanner.nextLine();
 
 	System.out.print("Lemonade id: ");
 	int lemonadeId = scanner.nextInt();
