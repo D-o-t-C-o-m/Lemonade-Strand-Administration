@@ -1,11 +1,15 @@
 package org.mike.userinterface;
 
-import org.mike.domain.*;
+import org.mike.domain.Lemonade;
+import org.mike.domain.LemonadeRecipe;
+import org.mike.domain.Product;
 import org.mike.dtos.OutOfStockDTO;
 import org.mike.service.LemonadeService;
 import org.mike.service.SupplierService;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class LemonadeMenu {
 private final LemonadeService lemonadeService;
@@ -74,9 +78,13 @@ private void handleShowLemonadeRecipes(Scanner scanner) {
 public void runOOSReport() {
 
 	List<OutOfStockDTO> report = lemonadeService.OOSReport();
-	for (OutOfStockDTO oos : report) {
-		System.out.println(oos.getProduct().getName() + " is out of stock, contact supplier(s) for more:" + supplierService.findById(oos.getSupplier().getId()).getName() + ", " + supplierService.findById(oos.getSupplier().getId()).getEmail());
-
+	System.out.println("\n\nThese are the Out of Stock products: \n");
+	if (report.isEmpty()) {
+		System.out.print("");
+	} else {
+		for (OutOfStockDTO oos : report) {
+			System.out.println(oos.getProduct().getName() + " is out of stock, contact supplier(s) for more: " + supplierService.findById(oos.getSupplier().getId()).getName() + ", " + supplierService.findById(oos.getSupplier().getId()).getEmail());
+		}
 	}
 }
 }

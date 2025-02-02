@@ -7,6 +7,7 @@ import org.mike.dtos.OutOfStockDTO;
 import org.mike.repository.GenericRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -53,41 +54,46 @@ public Iterable<Lemonade> findAll() {
 
 public List<OutOfStockDTO> OOSReport() {
 	List<OutOfStockDTO> report = new ArrayList<>();
-
 	List<LemonadeRecipe> recipe = findAllLemonadeRecipe();
+	List<String> oosLemonades = new ArrayList<>();
 	boolean isOutOfStock = false;
-	ArrayList<Product> OOSitem = new ArrayList<>();
-	ArrayList<LemonadeRecipe> lemonades = new ArrayList<>();
-	for (LemonadeRecipe lemonadeRecipe : recipe) {
-		for (Map.Entry<Product, Integer> entry : lemonadeRecipe.getProductQuantities().entrySet()) {
-			ArrayList<Product> recipeUsage = new ArrayList<>();
-			Product recipeProduct = entry.getKey();
-			int recipeQuantity = entry.getValue();
-			recipeUsage.add(recipeProduct);
 
-			for (Product products : recipeUsage) {
-				int onHands = products.getQuantity();
-				if (onHands < recipeQuantity) {
-					OOSitem.add(products);
-					lemonades.add(lemonadeRecipe);
-					isOutOfStock = true;
-					OutOfStockDTO OutOfStockDTO = new OutOfStockDTO(products, products.getSupplier());
-					report.add(OutOfStockDTO);
+	for (LemonadeRecipe lemonadeRecipe : recipe) {
+		boolean lemonadeOutOfStock = false;
+		for (Map.Entry<Product, Integer> entry : lemonadeRecipe.getProductQuantities().entrySet()) {
+			Product recipeProduct = entry.getKey();
+			int requiredQuantity = entry.getValue();
+			if (recipeProduct.getQuantity() < requiredQuantity) {
+				isOutOfStock = true;
+				lemonadeOutOfStock = true;
+				boolean productAlreadyInReport = false;
+				for (OutOfStockDTO dto : report) {
+					if (dto.getProduct().getId() == recipeProduct.getId()) {
+						productAlreadyInReport = true;
+						break;
+					}
+				}
+				if (!productAlreadyInReport) {
+					OutOfStockDTO outOfStockDTO = new OutOfStockDTO(recipeProduct, recipeProduct.getSupplier());
+					report.add(outOfStockDTO);
 				}
 			}
 		}
-	} if (isOutOfStock) {
-			for (LemonadeRecipe lemonadeRecipe : lemonades) {
-				System.out.println("These lemonades are not able to be made due to the out of stocks:");
-				System.out.println(lemonadeRecipe.getLemonade().getName());
-				return report;
-			}
-
+		if (lemonadeOutOfStock) {
+			oosLemonades.add(lemonadeRecipe.getLemonade().getName());
+		}
+	}
+	if (isOutOfStock) {
+		System.out.println("These lemonades are not able to be made due to out of stock items:");
+		for (String lemonade : oosLemonades) {
+			System.out.println(lemonade);
+		}
+		return report;
 	} else {
 		System.out.println("There are no lemonades that are out of stock");
-
+		return Collections.emptyList();
 	}
-	return report;
 }
+
 
 }

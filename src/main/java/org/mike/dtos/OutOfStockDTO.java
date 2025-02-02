@@ -1,11 +1,12 @@
 package org.mike.dtos;
-import org.mike.domain.*;
 
+import org.mike.domain.Product;
+import org.mike.domain.Supplier;
 
 
 public class OutOfStockDTO {
-private Product product;
-private Supplier supplier;
+private final Product product;
+private final Supplier supplier;
 
 public OutOfStockDTO(Product product, Supplier supplier) {
 	this.product = product;
@@ -20,8 +21,5 @@ public Supplier getSupplier() {
 	return supplier;
 }
 
-public String getSupplierContact(Supplier supplier) {
-	return supplier.getName() + ", " + supplier.getEmail();
-}
 }
 
