@@ -61,6 +61,7 @@ private void handleShowLemonades() {
 		System.out.println(lemonade.getName());
 	}
 }
+
 private void handleShowLemonadeRecipes(Scanner scanner) {
 	System.out.print("The ID of the lemonade: ");
 	int lemonadeId = scanner.nextInt();
@@ -78,6 +79,7 @@ private void handleShowLemonadeRecipes(Scanner scanner) {
 		}
 	}
 }
+
 public void lemonadeOutOfStockReport() {
 	List<LemonadeRecipe> recipe = lemonadeService.findAllLemonadeRecipe();
 	Iterable<Product> onHands = productService.getAllProducts();

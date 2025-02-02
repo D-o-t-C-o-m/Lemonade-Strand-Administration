@@ -57,6 +57,7 @@ public void runMenu() {
 					break;
 				case 3:
 					lemonadeMenu.runLemonadeMenu(scanner);
+					break;
 				case 4:
 					orderMenu.runOrderOption(scanner);
 					break;
@@ -65,6 +66,7 @@ public void runMenu() {
 					break;
 				case 6:
 					lemonadeMenu.lemonadeOutOfStockReport();
+					break;
 				case 7:
 					break;
 			}
