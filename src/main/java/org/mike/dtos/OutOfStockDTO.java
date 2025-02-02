@@ -1,14 +1,27 @@
 package org.mike.dtos;
+import org.mike.domain.*;
 
 
-import org.mike.domain.LemonadeRecipe;
 
 public class OutOfStockDTO {
+private Product product;
+private Supplier supplier;
 
-//use this to remake the method of getting OOS from Lemonade Menu - Should be able to feed Product Name, Product Quantity Supplier Name, and Supplier email and identify when items are OOS and "EMAIL" our vendors
-
-private LemonadeRecipe recipe;
-
-//is there a reason I can't use the order service method for checking instocks as my validator to trigger vendor emails?
-
+public OutOfStockDTO(Product product, Supplier supplier) {
+	this.product = product;
+	this.supplier = supplier;
 }
+
+public Product getProduct() {
+	return product;
+}
+
+public Supplier getSupplier() {
+	return supplier;
+}
+
+public String getSupplierContact(Supplier supplier) {
+	return supplier.getName() + ", " + supplier.getEmail();
+}
+}
+

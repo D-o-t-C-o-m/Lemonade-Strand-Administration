@@ -1,20 +1,19 @@
 package org.mike.userinterface;
 
-import org.mike.domain.Lemonade;
-import org.mike.domain.LemonadeRecipe;
-import org.mike.domain.Product;
+import org.mike.domain.*;
+import org.mike.dtos.OutOfStockDTO;
 import org.mike.service.LemonadeService;
+import org.mike.service.SupplierService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class LemonadeMenu {
 private final LemonadeService lemonadeService;
+private final SupplierService supplierService;
 
-public LemonadeMenu(LemonadeService lemonadeService) {
+public LemonadeMenu(LemonadeService lemonadeService, SupplierService supplierService) {
 	this.lemonadeService = lemonadeService;
+	this.supplierService = supplierService;
 }
 
 public void runLemonadeMenu(Scanner scanner) {
@@ -72,39 +71,16 @@ private void handleShowLemonadeRecipes(Scanner scanner) {
 	}
 }
 
-public void lemonadeOutOfStockReport() {
-	List<LemonadeRecipe> recipe = lemonadeService.findAllLemonadeRecipe();
+public void runOOSReport() {
 
-	boolean OOS = false;
+	List<OutOfStockDTO> report = lemonadeService.OOSReport();
+	for (OutOfStockDTO oos : report) {
+		System.out.println(oos.getProduct().getName() + " is out of stock, contact supplier(s) for more:" + supplierService.findById(oos.getSupplier().getId()).getName() + ", " + supplierService.findById(oos.getSupplier().getId()).getEmail());
 
-	for (LemonadeRecipe lemonadeRecipe : recipe) {
-		int qtyNeed = 0;
-		int qtyOnHand = 0;
-		Lemonade current = lemonadeRecipe.getLemonade();
-		String currentLemonade = current.getName();
-
-		ArrayList<Product> recipeUsage = new ArrayList<>();
-
-		for (Map.Entry<Product, Integer> entry : lemonadeRecipe.getProductQuantities().entrySet()) {
-
-			Product product = entry.getKey();
-			int quantity = entry.getValue();
-			qtyNeed += quantity;
-			recipeUsage.add(product);
-		}
-
-		for (Product product : recipeUsage) {
-			int quantity = product.getQuantity();
-			qtyOnHand += quantity;
-		}
-		if (qtyNeed > qtyOnHand) {
-			OOS = true;
-			System.out.println(currentLemonade + " does not have enough ingredients to be made at this time.");
-		}
-	}
-	if (!OOS) {
-		System.out.println("We have everything we need to make all of our Lemonade");
 	}
 }
 }
+
+
+
 

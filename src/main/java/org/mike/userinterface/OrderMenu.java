@@ -5,6 +5,7 @@ import org.mike.dtos.DailySalesDTO;
 import org.mike.exceptions.IDNotUniqueException;
 import org.mike.exceptions.ValidationException;
 import org.mike.service.OrderService;
+import org.mike.service.LemonadeService;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -13,9 +14,11 @@ import java.util.Scanner;
 
 public class OrderMenu {
 private final OrderService orderService;
+private final LemonadeService lemonadeService;
 
-public OrderMenu(OrderService orderService) {
+public OrderMenu(OrderService orderService, LemonadeService lemonadeService) {
 	this.orderService = orderService;
+	this.lemonadeService = lemonadeService;
 }
 
 public void runOrderOption(Scanner scanner) {
@@ -26,6 +29,7 @@ public void runOrderOption(Scanner scanner) {
 	System.out.println("You are Order: " + id);
 	scanner.nextLine();
 
+	System.out.println(lemonadeService.findAll());
 	System.out.print("Lemonade id: ");
 	int lemonadeId = scanner.nextInt();
 

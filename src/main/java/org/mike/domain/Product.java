@@ -37,6 +37,10 @@ public void setSupplier(Supplier supplier) {
 	this.supplier = supplier;
 }
 
+public String getSupplierName() {
+	return supplier != null ? supplier.getName() : null;
+}
+
 public String getName() {
 	return name;
 }
