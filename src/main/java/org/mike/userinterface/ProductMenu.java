@@ -27,16 +27,17 @@ private void showProductsMenu() {
 	System.out.println("1. Add a product");
 	System.out.println("2. Update a product");
 	System.out.println("3. Remove a product");
-	System.out.println("4. Display all products");
-	System.out.println("5. Search for a product by supplier");
-	System.out.println("6. Back to main menu");
+	System.out.println("4. Change product quantity");
+	System.out.println("5. Display all products");
+	System.out.println("6. Search for a product by supplier");
+	System.out.println("7. Back to main menu");
 	System.out.println("What do you want to do? ");
 	System.out.print("> ");
 }
 
 public void runProductsMenu(Scanner scanner) throws FileNotFoundException, ValidationException, IDNotUniqueException {
 	int option = -1;
-	while (option != 6) {
+	while (option != 7) {
 		showProductsMenu();
 		option = scanner.nextInt();
 
@@ -51,14 +52,17 @@ public void runProductsMenu(Scanner scanner) throws FileNotFoundException, Valid
 				handleUpdateProduct(scanner);
 				break;
 			case 4:
-				handleShowProducts();
+				handleQtyChange(scanner);
 				break;
 			case 5:
-				supplierSearch(scanner);
+				handleShowProducts();
 				break;
 			case 6:
+				supplierSearch(scanner);
 				break;
-			//Add a method for updating product quantities IE Purchase / Waste
+			case 7:
+				break;
+
 		}
 	}
 }
@@ -164,6 +168,22 @@ private void supplierSearch(Scanner scanner) {
 	if (!found) {
 		System.out.println("No Supplier found with that name.");
 	}
+}
+private void handleQtyChange(Scanner scanner) {
+	System.out.println("Product ID to change quantity: ");
+	int id = scanner.nextInt();
+	scanner.nextLine();
+	System.out.println("Current on hand of "+productService.findById(id).getName()+" is " + productService.findById(id).getQuantity());
+	System.out.println("Change? Positive for Purchase, Negative for Waste");
+	int qty = scanner.nextInt();
+	scanner.nextLine();
+
+
+	int current = productService.findById(id).getQuantity();
+	productService.findById(id).setQuantity(qty + current);
+	System.out.println("Changed quantity to " + productService.findById(id).getQuantity());
+
+
 }
 }
 

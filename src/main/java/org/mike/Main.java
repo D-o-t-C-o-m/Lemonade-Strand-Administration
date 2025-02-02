@@ -22,7 +22,7 @@ public static void main(String[] args) throws IOException, IDNotUniqueException 
 	ProductService productService = new ProductService(productRepository, productValidator, supplierService);
 
 	LemonadeFileRepository lemonadeRepository = new LemonadeFileRepository("lemonade.csv");
-	LemonadeRecipeFileRepository lemonadeRecipeRepository = new LemonadeRecipeFileRepository("lemonade-recipes.csv", productRepository, lemonadeRepository, supplierRepository);
+	LemonadeRecipeFileRepository lemonadeRecipeRepository = new LemonadeRecipeFileRepository("lemonade-recipes.csv", productRepository, lemonadeRepository);
 	LemonadeService lemonadeService = new LemonadeService(lemonadeRecipeRepository, lemonadeRepository);
 
 	OrderFileRepository orderFileRepository = new OrderFileRepository("orders.csv", lemonadeService);

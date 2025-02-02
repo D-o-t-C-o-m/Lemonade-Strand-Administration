@@ -23,7 +23,7 @@ private final OrderMenu orderMenu;
 public UserInterface(ProductService productService, SupplierService supplierService, LemonadeService lemonadeService, OrderService orderService) {
 	this.supplierMenu = new SupplierMenu(supplierService);
 	this.productMenu = new ProductMenu(supplierService, productService);
-	this.lemonadeMenu = new LemonadeMenu(lemonadeService, productService);
+	this.lemonadeMenu = new LemonadeMenu(lemonadeService);
 	this.orderMenu = new OrderMenu(orderService);
 }
 
