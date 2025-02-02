@@ -1,4 +1,4 @@
-ProductID,Name,Description,Price,Quantity,SupplierID
+Product ID|Name|Description|Price|Quantity|Supplier ID
 1,Water,Water,1.0,6,1
 66,long Straw,Drink from far away with this bad boi,1.0,8,349
 2,Ice,Ice,1.0,6,3

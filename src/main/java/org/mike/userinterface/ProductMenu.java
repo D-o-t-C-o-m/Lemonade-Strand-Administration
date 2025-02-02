@@ -58,7 +58,7 @@ public void runProductsMenu(Scanner scanner) throws FileNotFoundException, Valid
 				break;
 			case 6:
 				break;
-
+			//Add a method for updating product quantites IE Purchase / Waste
 		}
 	}
 }
