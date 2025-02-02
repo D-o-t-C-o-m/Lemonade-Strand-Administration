@@ -1,4 +1,4 @@
-Recipe ID|Product ID|Lemonade ID|Quantity
+RecipeID,ProductID,LemonadeID,Quantity
 1,1,1,2
 1,2,1,2
 1,66,1,1
