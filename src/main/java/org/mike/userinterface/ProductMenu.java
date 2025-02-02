@@ -12,8 +12,8 @@ import java.util.Scanner;
 
 
 public class ProductMenu {
-private SupplierService supplierService;
-private ProductService productService;
+private final SupplierService supplierService;
+private final ProductService productService;
 
 public ProductMenu(SupplierService supplierService, ProductService productService) {
 	this.supplierService = supplierService;
@@ -58,7 +58,7 @@ public void runProductsMenu(Scanner scanner) throws FileNotFoundException, Valid
 				break;
 			case 6:
 				break;
-			//Add a method for updating product quantites IE Purchase / Waste
+			//Add a method for updating product quantities IE Purchase / Waste
 		}
 	}
 }
@@ -136,7 +136,7 @@ private void supplierSearch(Scanner scanner) {
 	System.out.print("> ");
 	String search = scanner.next().trim();
 	scanner.nextLine();
-	System.out.println("Searching for " + "'"+search+"'");
+	System.out.println("Searching for " + "'" + search + "'");
 	boolean found = false;
 
 	Iterable<Supplier> suppliers = supplierService.findAll();
@@ -148,22 +148,22 @@ private void supplierSearch(Scanner scanner) {
 
 			found = true;
 
-			System.out.println("\n"+supplierName+":\n");
+			System.out.println("\n" + supplierName + ":\n");
 			Iterable<Product> products = productService.getAllProducts();
 			for (Product product : products) {
 				if (product.getSupplier().getId() == supplierId) {
 					System.out.println("ID, Name, Description");
-					System.out.println(product.getId()+", "+product.getName() + ", " + product.getDescription());
+					System.out.println(product.getId() + ", " + product.getName() + ", " + product.getDescription());
+
+				}
+			}
+			System.out.println();
 
 		}
 	}
-			System.out.println();
-
-			}
-		}
 	if (!found) {
 		System.out.println("No Supplier found with that name.");
 	}
-	}
+}
 }
 

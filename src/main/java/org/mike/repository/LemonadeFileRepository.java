@@ -7,8 +7,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LemonadeFileRepository  extends GenericRepository<Lemonade>{
-private String filename;
+public class LemonadeFileRepository extends GenericRepository<Lemonade> {
+private final String filename;
 
 public LemonadeFileRepository(String filename) throws IOException, IDNotUniqueException {
 	super();
@@ -50,7 +50,7 @@ public List<Lemonade> readLemonadesFromFile() {
 			String name = parts[1];
 			double price = Double.parseDouble(parts[2]);
 
-			Lemonade lemonade = new Lemonade(id,name,price);
+			Lemonade lemonade = new Lemonade(id, name, price);
 			lemonades.add(lemonade);
 
 		}
@@ -70,7 +70,7 @@ private void writeToFile() {
 		bw.newLine();
 		Iterable<Lemonade> lemonades = findAll();
 		for (Lemonade lemonade : lemonades) {
-			String line = lemonade.getId() + "," + lemonade.getName() + ","  + lemonade.getTotalPrice();
+			String line = lemonade.getId() + "," + lemonade.getName() + "," + lemonade.getTotalPrice();
 			bw.write(line);
 			bw.newLine();
 		}

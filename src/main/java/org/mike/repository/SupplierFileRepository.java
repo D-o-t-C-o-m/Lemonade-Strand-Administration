@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierFileRepository extends GenericRepository<Supplier> {
-private String filename;
+private final String filename;
 
 public SupplierFileRepository(String filename) throws FileNotFoundException, IDNotUniqueException {
 	super();

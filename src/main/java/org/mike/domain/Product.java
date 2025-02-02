@@ -1,6 +1,6 @@
 package org.mike.domain;
 
-public class Product extends Entity{
+public class Product extends Entity {
 private String name;
 private String description;
 private int quantity;
@@ -63,12 +63,6 @@ public void setPrice(double price) {
 
 @Override
 public String toString() {
-	return "Product{" +
-			"id=" + id +
-			", name='" + name + '\'' +
-			", description='" + description + '\'' +
-			", price=" + price +
-			", quantity=" + quantity +
-			'}';
+	return "Product{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + ", price=" + price + ", quantity=" + quantity + '}';
 }
 }

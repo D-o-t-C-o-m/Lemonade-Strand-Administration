@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProductFileRepository extends GenericRepository<Product> {
 
-private String filename;
+private final String filename;
 
 public ProductFileRepository(String filename) throws IOException, IDNotUniqueException {
 	super();

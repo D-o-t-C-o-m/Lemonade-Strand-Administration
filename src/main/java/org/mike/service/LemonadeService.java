@@ -9,8 +9,8 @@ import java.util.List;
 
 
 public class LemonadeService {
-private GenericRepository<Lemonade> lemonadeRepository;
-private GenericRepository<LemonadeRecipe> lemonadeRecipeRepository;
+private final GenericRepository<Lemonade> lemonadeRepository;
+private final GenericRepository<LemonadeRecipe> lemonadeRecipeRepository;
 
 public LemonadeService(GenericRepository<LemonadeRecipe> lemonadeRecipeRepository, GenericRepository<Lemonade> lemonadeRepository) {
 	this.lemonadeRepository = lemonadeRepository;

@@ -9,8 +9,8 @@ public void ShouldGetCorrectValues_whenConstructorIsCalled() {
 	assert supplier.getEmail().equals("Contact@lemonade.com");
 }
 
-public void shouldSetCorrectValues_whenSettersAreUse(){
-	Supplier supplier = new Supplier(1, "Lemon","Lemon@ades.com");
+public void shouldSetCorrectValues_whenSettersAreUse() {
+	Supplier supplier = new Supplier(1, "Lemon", "Lemon@ades.com");
 	supplier.setId(2);
 	supplier.setName("Lemonades");
 	supplier.setEmail("Contact@lemonade.com");
@@ -20,7 +20,8 @@ public void shouldSetCorrectValues_whenSettersAreUse(){
 	assert supplier.getEmail().equals("Contact@lemonade.com");
 
 
-	}
+}
+
 public void testAllDomain() {
 	shouldSetCorrectValues_whenSettersAreUse();
 	ShouldGetCorrectValues_whenConstructorIsCalled();

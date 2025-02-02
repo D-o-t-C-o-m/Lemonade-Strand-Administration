@@ -2,7 +2,7 @@ package org.mike.domain;
 
 import java.util.Objects;
 
-public class Supplier extends Entity{
+public class Supplier extends Entity {
 private String name;
 private String email;
 

@@ -12,10 +12,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class OrderMenu {
-private OrderService orderService;
+private final OrderService orderService;
+
 public OrderMenu(OrderService orderService) {
 	this.orderService = orderService;
 }
+
 public void runOrderOption(Scanner scanner) {
 	System.out.println("Placing a new order.");
 
@@ -40,15 +42,15 @@ public void runOrderOption(Scanner scanner) {
 	}
 }
 
-public void runDailyReport(){
-		System.out.println("You want to create a daily report.");
+public void runDailyReport() {
+	System.out.println("You want to create a daily report.");
 
-		List<DailySalesDTO> report = orderService.getDailyReport();
-		for(DailySalesDTO day: report){
-			String reportLine = "For the day %s the total items sold %d, for a total of %.2f\n";
-			String reportLineFormatted = String.format(reportLine, day.getDayString(), day.getTotalSales(), day.getSalesDollars());
-			System.out.println(reportLineFormatted);
-		}
+	List<DailySalesDTO> report = orderService.getDailyReport();
+	for (DailySalesDTO day : report) {
+		String reportLine = "For the day %s the total items sold %d, for a total of %.2f\n";
+		String reportLineFormatted = String.format(reportLine, day.getDayString(), day.getTotalSales(), day.getSalesDollars());
+		System.out.println(reportLineFormatted);
 	}
+}
 }
 

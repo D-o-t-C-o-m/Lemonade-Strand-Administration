@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class SupplierMenu {
 
-private SupplierService supplierService;
+private final SupplierService supplierService;
 
 public SupplierMenu(SupplierService supplierService) {
 	this.supplierService = supplierService;

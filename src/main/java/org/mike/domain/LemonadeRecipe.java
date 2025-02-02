@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class LemonadeRecipe extends Entity {
+private final Map<Product, Integer> productQuantities;
 private int id;
-private Map<Product, Integer> productQuantities; // Map to store products and their quantities
 private Lemonade lemonade;
 
 public LemonadeRecipe(int id, Lemonade lemonade) {
@@ -18,6 +18,7 @@ public LemonadeRecipe(int id, Lemonade lemonade) {
 public Map<Product, Integer> getProductQuantities() {
 	return productQuantities;
 }
+
 public int getQuantity(int id) {
 	for (Map.Entry<Product, Integer> entry : productQuantities.entrySet()) {
 		if (entry.getKey().getId() == id) {
@@ -26,6 +27,7 @@ public int getQuantity(int id) {
 	}
 	return 0;
 }
+
 public Product getProduct(int id) {
 	for (Map.Entry<Product, Integer> entry : productQuantities.entrySet()) {
 		if (entry.getKey().getId() == id) {
@@ -34,6 +36,7 @@ public Product getProduct(int id) {
 	}
 	return null;
 }
+
 public Lemonade getLemonade() {
 	return lemonade;
 }
@@ -67,7 +70,6 @@ public boolean equals(Object obj) {
 public int hashCode() {
 	return Objects.hash(lemonade, productQuantities);
 }
-
 
 
 }

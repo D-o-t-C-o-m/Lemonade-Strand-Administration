@@ -12,16 +12,14 @@ import java.util.Map;
 
 
 public class LemonadeRecipeFileRepository extends GenericRepository<LemonadeRecipe> {
-private String filename;
-private GenericRepository<Product> productRepository;
-private GenericRepository<Lemonade> lemonadeRepository;
-private GenericRepository<Supplier> supplierRepository;
+private final String filename;
+private final GenericRepository<Product> productRepository;
+private final GenericRepository<Lemonade> lemonadeRepository;
 
 
-public LemonadeRecipeFileRepository(String filename, GenericRepository<Product> productRepository, GenericRepository<Lemonade> lemonadeRepository, GenericRepository<Supplier> supplierRepository) throws IOException, IDNotUniqueException {
+public LemonadeRecipeFileRepository(String filename, GenericRepository<Product> productRepository, GenericRepository<Lemonade> lemonadeRepository) throws IOException, IDNotUniqueException {
 	super();
 	this.filename = filename;
-	this.supplierRepository = supplierRepository;
 	this.productRepository = productRepository;
 	this.lemonadeRepository = lemonadeRepository;
 	super.fileExistenceCheck(filename);
@@ -61,10 +59,7 @@ public Map<Integer, LemonadeRecipe> readLemonadeRecipesFromFile() {
 			String[] parts = line.split(",");
 			int recipeId = Integer.parseInt(parts[0]); // Recipe ID
 			int productId = Integer.parseInt(parts[1]);
-			int vendorId = Integer.parseInt(parts[2]);
 			int quantity = Integer.parseInt(parts[3]);
-
-			Supplier supplier = supplierRepository.findById(vendorId);
 
 
 			Product product = productRepository.findById(productId);

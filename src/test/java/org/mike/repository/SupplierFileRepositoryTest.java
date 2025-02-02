@@ -29,7 +29,7 @@ public void shouldSaveToFileOneElement_whenSaveIsCalled() throws IDNotUniqueExce
 	SupplierFileRepository fileRepository = new SupplierFileRepository(filename);
 	Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
 
-    fileRepository.save(firstSupplierToSave);
+	fileRepository.save(firstSupplierToSave);
 
 	List<Supplier> suppliersFromFile = fileRepository.readSupplierFromFile();
 

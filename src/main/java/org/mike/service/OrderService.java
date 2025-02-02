@@ -2,11 +2,11 @@ package org.mike.service;
 
 import org.mike.domain.Lemonade;
 import org.mike.domain.LemonadeRecipe;
+import org.mike.domain.Order;
 import org.mike.domain.Product;
 import org.mike.dtos.DailySalesDTO;
 import org.mike.exceptions.ValidationException;
 import org.mike.repository.OrderFileRepository;
-import org.mike.domain.Order;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -26,14 +26,14 @@ public OrderService(OrderFileRepository orderFileRepository, LemonadeService lem
 	this.lemonadeService = lemonadeService;
 }
 
-public Order saveOrder (int id, int lemonadeId, int orderQuantity) throws FileNotFoundException {
+public Order saveOrder(int id, int lemonadeId, int orderQuantity) throws FileNotFoundException {
 	Lemonade lemonade = lemonadeService.findById(lemonadeId);
 	List<LemonadeRecipe> recipe = lemonadeService.findLemonadeRecipe(lemonadeId);
 
 	boolean isEnoughStock = isEnoughInStockForOrder(recipe, orderQuantity);
 	if (isEnoughStock) {
 		updateProductStock(recipe, orderQuantity);
-		Order order = new Order (id, lemonade, orderQuantity, orderQuantity * lemonade.getTotalPrice(), new Date());
+		Order order = new Order(id, lemonade, orderQuantity, orderQuantity * lemonade.getTotalPrice(), new Date());
 		return orderFileRepository.save(order);
 
 	} else {
@@ -71,7 +71,8 @@ private boolean isEnoughInStockForOrder(List<LemonadeRecipe> recipe, int orderQu
 	}
 	return true;
 }
-public List<DailySalesDTO> getDailyReport(){
+
+public List<DailySalesDTO> getDailyReport() {
 	List<DailySalesDTO> report = new ArrayList<>();
 	Iterable<Order> orders = orderFileRepository.findAll();
 	for (Order order : orders) {
@@ -85,8 +86,9 @@ public List<DailySalesDTO> getDailyReport(){
 			}
 		}
 		if (!alreadyAddedDay) {
-			report.add(new DailySalesDTO(order.getDate(),order.getQuantity(),order.getFinalPrice()));
+			report.add(new DailySalesDTO(order.getDate(), order.getQuantity(), order.getFinalPrice()));
 		}
-	} return report;
+	}
+	return report;
 }
 }

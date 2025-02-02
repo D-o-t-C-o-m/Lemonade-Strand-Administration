@@ -11,9 +11,9 @@ import org.mike.validators.ProductValidator;
 import java.io.FileNotFoundException;
 
 public class ProductService {
-private GenericRepository<Product> productRepository;
-private ProductValidator productValidator;
-private SupplierService supplierService;
+private final GenericRepository<Product> productRepository;
+private final ProductValidator productValidator;
+private final SupplierService supplierService;
 
 public ProductService(GenericRepository<Product> productRepository, ProductValidator productValidator, SupplierService supplierService) {
 	this.productRepository = productRepository;

@@ -14,10 +14,10 @@ import java.util.Scanner;
 
 
 public class UserInterface {
-private SupplierMenu supplierMenu;
-private ProductMenu productMenu;
-private LemonadeMenu lemonadeMenu;
-private OrderMenu orderMenu;
+private final SupplierMenu supplierMenu;
+private final ProductMenu productMenu;
+private final LemonadeMenu lemonadeMenu;
+private final OrderMenu orderMenu;
 
 
 public UserInterface(ProductService productService, SupplierService supplierService, LemonadeService lemonadeService, OrderService orderService) {
@@ -57,14 +57,16 @@ public void runMenu() {
 					break;
 				case 3:
 					lemonadeMenu.runLemonadeMenu(scanner);
+					break;
 				case 4:
 					orderMenu.runOrderOption(scanner);
 					break;
-			     case 5:
+				case 5:
 					orderMenu.runDailyReport();
 					break;
 				case 6:
 					lemonadeMenu.lemonadeOutOfStockReport();
+					break;
 				case 7:
 					break;
 			}

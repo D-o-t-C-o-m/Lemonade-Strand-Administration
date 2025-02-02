@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GenericRepository <T extends Entity> implements RepositoryInterface<T> {
+public class GenericRepository<T extends Entity> implements RepositoryInterface<T> {
 
-private Map<Integer, T> entities;
+private final Map<Integer, T> entities;
 
 public GenericRepository() {
 	this.entities = new HashMap<>();
@@ -28,10 +28,10 @@ public T save(T entity) throws IDNotUniqueException, FileNotFoundException {
 
 
 public T update(T entity) throws FileNotFoundException {
-if (entities.containsKey(entity.getId())) {
-	entities.put(entity.getId(), entity);
-}
-return entity;
+	if (entities.containsKey(entity.getId())) {
+		entities.put(entity.getId(), entity);
+	}
+	return entity;
 }
 
 public void delete(int entityId) throws FileNotFoundException {
@@ -41,6 +41,7 @@ public void delete(int entityId) throws FileNotFoundException {
 public Iterable<T> findAll() {
 	return entities.values();
 }
+
 public T findById(int entityId) {
 	return entities.get(entityId);
 }
